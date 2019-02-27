@@ -1,16 +1,19 @@
 <template>
   <div id="app">
-    <Intro />
+    <intro />
+    <recorder />
   </div>
 </template>
 
 <script>
 import Intro from "./components/Intro.vue"
+import Recorder from "./components/Recorder.vue"
 
 export default {
   name: 'app',
   components: {
-    Intro
+    Intro,
+    Recorder
   }
 }
 </script>
