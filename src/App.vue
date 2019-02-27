@@ -1,7 +1,11 @@
 <template>
   <div id="app">
-    <intro />
-    <recorder />
+    <v-container>
+      <v-layout align-center justify-start column>
+        <intro />
+        <recorder />
+      </v-layout>      
+    </v-container>
   </div>
 </template>
 
