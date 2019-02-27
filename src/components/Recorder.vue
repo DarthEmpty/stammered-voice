@@ -18,8 +18,11 @@
           </v-flex>
 
           <v-flex shrink>  
-            <v-btn fab small color="primary">
-              <v-icon color="red">fas fa-circle</v-icon>
+            <v-btn
+              fab small color="primary"
+              @click="toggleRecording"
+            >
+              <v-icon color="red">fas {{ iconState }}</v-icon>
             </v-btn>
           </v-flex>
 
@@ -39,7 +42,8 @@ export default {
   name: "Recorder",
   data: () => {
     return {
-      recorder: null
+      recorder: null,
+      iconState: "fa-circle"
     }
   },
   mounted: async function() {
@@ -57,6 +61,10 @@ export default {
       await this.recorder.stopRecording()
       let blob = await this.recorder.getBlob()
       invokeSaveAsDialog(blob);
+    },
+
+    toggleRecording() {
+      this.iconState = this.iconState === "fa-circle" ? "fa-stop" : "fa-circle"
     }
   }
 }
