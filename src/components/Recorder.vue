@@ -18,8 +18,13 @@
           </v-flex>
 
           <v-flex shrink>  
-            <v-btn fab small color="primary">
-              <v-icon color="red">fas fa-circle</v-icon>
+            <v-btn fab small
+              color="primary"
+              :loading="loading"
+              :disabled="loading"
+              @click="toggleRecording"
+            >
+              <v-icon color="red">fas fa-{{ iconState }}</v-icon>
             </v-btn>
           </v-flex>
 
@@ -38,14 +43,17 @@ export default {
   name: "Recorder",
   data: () => {
     return {
-      recorder: null
+      stream: null,
+      recorder: null,
+      iconState: "circle",
+      loading: false
     }
   },
   mounted: async function() {
-    let stream = navigator.mediaDevices.getUserMedia({audio: true})
-    let config = { type: "audio", mimeType: "audio/wav" }
+    let stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+    let config = { type: "audio" }
 
-    this.recorder = await new RecordRTCPromisesHandler(stream, config)
+    this.recorder = new RecordRTCPromisesHandler(stream, config)
   },
   methods: {
     startRecording() {
@@ -55,7 +63,25 @@ export default {
     async stopRecording() {
       await this.recorder.stopRecording()
       let blob = await this.recorder.getBlob()
-      invokeSaveAsDialog(blob);
+      invokeSaveAsDialog(blob)
+    },
+
+    async toggleRecording() {
+      if (this.iconState === "circle") {
+        // this.startRecording()
+        this.iconState = "stop"
+      } else {
+        this.loading = true
+        // await this.stopRecording()
+        
+        // dummy code:
+        const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+        await sleep(2000)
+        // dummy code end
+
+        this.loading = false
+        this.iconState = "circle"
+      }
     }
   }
 }
