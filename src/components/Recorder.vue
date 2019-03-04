@@ -7,15 +7,15 @@
       >
         <v-layout justify-space-around column fill-height>
 
-          <v-flex class="pa-2">
+          <v-flex class="ma-2">
             <h2>Recording...</h2>
           </v-flex>
 
-          <v-flex class="pa-4">
+          <v-flex class="ma-4">
             <v-icon>fas fa-microphone-alt fa-10x</v-icon>
           </v-flex>
 
-          <v-flex class="pa-2">
+          <v-flex class="ma-2">
             <v-layout align-center justify-space-between>
               <v-flex>  
                 <v-btn fab depressed
