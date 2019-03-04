@@ -1,12 +1,8 @@
 <template>
   <div class="recorder">
     <v-flex>
-      <v-sheet
-        class="pa-4"
-        color="grey lighten-2"
-      >
+      <v-sheet class="pa-4" color="grey lighten-2" min-width="450" min-height="360">
         <v-layout justify-space-around column fill-height>
-
           <v-flex class="ma-2">
             <h2>Recording...</h2>
           </v-flex>
@@ -16,9 +12,11 @@
           </v-flex>
 
           <v-flex class="ma-2">
-            <v-layout align-center justify-space-between>
-              <v-flex>  
-                <v-btn fab depressed
+            <v-layout align-center justify-space-between wrap>
+              <v-flex>
+                <v-btn
+                  fab
+                  depressed
                   color="primary"
                   :loading="loading"
                   :disabled="loading"
@@ -29,17 +27,11 @@
               </v-flex>
 
               <v-flex>
-                <audio
-                  id="player" ref="player"
-                  controls
-                  :src="blobURL"
-                />
+                <audio id="player" ref="player" controls :src="blobURL"/>
               </v-flex>
             </v-layout>
           </v-flex>
-
         </v-layout>
-        
       </v-sheet>
     </v-flex>
   </div>
@@ -47,7 +39,7 @@
 
 
 <script>
-import { RecordRTCPromisesHandler } from "recordrtc"
+import { RecordRTCPromisesHandler } from "recordrtc";
 
 export default {
   name: "Recorder",
@@ -57,37 +49,36 @@ export default {
       iconState: "circle",
       loading: false,
       blobURL: ""
-    }
+    };
   },
   async mounted() {
-    let stream = await navigator.mediaDevices.getUserMedia({ audio: true })
-    let config = { type: "audio" }
+    let stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    let config = { type: "audio" };
 
-    this.recorder = new RecordRTCPromisesHandler(stream, config)
+    this.recorder = new RecordRTCPromisesHandler(stream, config);
   },
   methods: {
     startRecording() {
-      this.recorder.startRecording()
+      this.recorder.startRecording();
     },
 
     async stopRecording() {
-      await this.recorder.stopRecording()
-      let blob = await this.recorder.getBlob()
-      this.blobURL = URL.createObjectURL(blob)
+      await this.recorder.stopRecording();
+      let blob = await this.recorder.getBlob();
+      this.blobURL = URL.createObjectURL(blob);
     },
 
     async toggleRecording() {
       if (this.iconState === "circle") {
-        this.startRecording()
-        this.iconState = "stop"
-
+        this.startRecording();
+        this.iconState = "stop";
       } else {
-        this.loading = true
-        await this.stopRecording()
-        this.loading = false
-        this.iconState = "circle"
+        this.loading = true;
+        await this.stopRecording();
+        this.loading = false;
+        this.iconState = "circle";
       }
     }
   }
-}
+};
 </script>
