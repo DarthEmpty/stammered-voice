@@ -3,13 +3,11 @@
     <v-flex>
       <v-sheet
         class="pa-4"
-        height="400"
-        width="500"
         color="grey lighten-2"
       >
-        <v-layout align-center justify-space-around column fill-height>
+        <v-layout justify-space-around column fill-height>
 
-          <v-flex>
+          <v-flex class="pa-2">
             <h2>Recording...</h2>
           </v-flex>
 
@@ -17,23 +15,27 @@
             <v-icon>fas fa-microphone-alt fa-10x</v-icon>
           </v-flex>
 
-          <v-flex>  
-            <v-btn fab small
-              color="primary"
-              :loading="loading"
-              :disabled="loading"
-              @click="toggleRecording"
-            >
-              <v-icon color="red">fas fa-{{ iconState }}</v-icon>
-            </v-btn>
-          </v-flex>
+          <v-flex class="pa-2">
+            <v-layout align-center justify-space-between>
+              <v-flex>  
+                <v-btn fab depressed
+                  color="primary"
+                  :loading="loading"
+                  :disabled="loading"
+                  @click="toggleRecording"
+                >
+                  <v-icon color="red">fas fa-{{ iconState }}</v-icon>
+                </v-btn>
+              </v-flex>
 
-          <v-flex class="pa-4">
-            <audio
-              id="player" ref="player"
-              controls
-              :src="blobURL"
-            />
+              <v-flex>
+                <audio
+                  id="player" ref="player"
+                  controls
+                  :src="blobURL"
+                />
+              </v-flex>
+            </v-layout>
           </v-flex>
 
         </v-layout>
