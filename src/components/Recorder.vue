@@ -29,7 +29,11 @@
           </v-flex>
 
           <v-flex class="pa-4">
-            <audio id="player" ref="player" controls />
+            <audio
+              id="player" ref="player"
+              controls
+              :src="blobURL"
+            />
           </v-flex>
 
         </v-layout>
@@ -50,7 +54,8 @@ export default {
       stream: null,
       recorder: null,
       iconState: "circle",
-      loading: false
+      loading: false,
+      blobURL: ""
     }
   },
   mounted: async function() {
@@ -67,7 +72,7 @@ export default {
     async stopRecording() {
       await this.recorder.stopRecording()
       let blob = await this.recorder.getBlob()
-      this.$refs.player.src = URL.createObjectURL(blob)
+      this.blobURL = URL.createObjectURL(blob)
     },
 
     async toggleRecording() {
