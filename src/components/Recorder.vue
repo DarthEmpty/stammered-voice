@@ -33,7 +33,6 @@
 
 <script>
 import { RecordRTCPromisesHandler, invokeSaveAsDialog } from "recordrtc"
-import { async } from 'q'
 
 export default {
   name: "Recorder",
