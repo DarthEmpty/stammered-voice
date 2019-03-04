@@ -51,7 +51,6 @@ export default {
   name: "Recorder",
   data: () => {
     return {
-      stream: null,
       recorder: null,
       iconState: "circle",
       loading: false,
