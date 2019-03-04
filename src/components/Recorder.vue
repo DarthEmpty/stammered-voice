@@ -51,7 +51,7 @@ import { RecordRTCPromisesHandler } from "recordrtc"
 
 export default {
   name: "Recorder",
-  data: () => {
+  data() {
     return {
       recorder: null,
       iconState: "circle",
@@ -59,7 +59,7 @@ export default {
       blobURL: ""
     }
   },
-  mounted: async function() {
+  async mounted() {
     let stream = await navigator.mediaDevices.getUserMedia({ audio: true })
     let config = { type: "audio" }
 
