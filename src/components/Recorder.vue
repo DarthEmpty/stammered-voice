@@ -3,21 +3,21 @@
     <v-flex>
       <v-sheet
         class="pa-4"
-        height="300"
+        height="400"
         width="500"
         color="grey lighten-2"
       >
         <v-layout align-center justify-space-around column fill-height>
 
-          <v-flex shrink>
+          <v-flex>
             <h2>Recording...</h2>
           </v-flex>
 
-          <v-flex grow class="pa-4">
+          <v-flex class="pa-4">
             <v-icon>fas fa-microphone-alt fa-10x</v-icon>
           </v-flex>
 
-          <v-flex shrink>  
+          <v-flex>  
             <v-btn fab small
               color="primary"
               :loading="loading"
@@ -26,6 +26,10 @@
             >
               <v-icon color="red">fas fa-{{ iconState }}</v-icon>
             </v-btn>
+          </v-flex>
+
+          <v-flex class="pa-4">
+            <audio id="player" ref="player" controls />
           </v-flex>
 
         </v-layout>
@@ -37,7 +41,7 @@
 
 
 <script>
-import { RecordRTCPromisesHandler, invokeSaveAsDialog } from "recordrtc"
+import { RecordRTCPromisesHandler } from "recordrtc"
 
 export default {
   name: "Recorder",
@@ -63,22 +67,17 @@ export default {
     async stopRecording() {
       await this.recorder.stopRecording()
       let blob = await this.recorder.getBlob()
-      invokeSaveAsDialog(blob)
+      this.$refs.player.src = URL.createObjectURL(blob)
     },
 
     async toggleRecording() {
       if (this.iconState === "circle") {
-        // this.startRecording()
+        this.startRecording()
         this.iconState = "stop"
+
       } else {
         this.loading = true
-        // await this.stopRecording()
-        
-        // dummy code:
-        const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
-        await sleep(2000)
-        // dummy code end
-
+        await this.stopRecording()
         this.loading = false
         this.iconState = "circle"
       }
