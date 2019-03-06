@@ -15,7 +15,7 @@
           </v-flex>
               
           <v-flex shrink>
-            <v-btn large flat icon @click="nextText">
+            <v-btn large flat icon :disabled="nextDisabled" @click="nextText">
               <v-icon>fas fa-arrow-right</v-icon>
             </v-btn>
           </v-flex>
@@ -41,6 +41,7 @@ export default {
       ]
     }
   },
+  props: [ "nextDisabled" ],
   methods: {
     shuffle(a) {
       for (let i = a.length; i; i--) {
@@ -50,6 +51,7 @@ export default {
     },
 
     nextText() {
+      this.$emit("update:text", this.possibleTexts[this.textIndex])
       this.textIndex = (this.textIndex + 1) % this.possibleTexts.length
       
       if (this.textIndex === 0) {

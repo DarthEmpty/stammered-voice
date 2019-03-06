@@ -3,13 +3,7 @@
     <v-container>
       <v-layout align-center justify-start column>
         <intro />
-
-        <v-flex>
-          <v-layout align-center justify-space-between fill-height wrap>
-            <recorder />
-            <cue-card />
-          </v-layout>
-        </v-flex>
+        <interactive />
       </v-layout>      
     </v-container>
   </div>
@@ -17,15 +11,13 @@
 
 <script>
 import Intro from "./components/Intro.vue"
-import Recorder from "./components/Recorder.vue"
-import CueCard from "./components/CueCard.vue"
+import Interactive from "./components/Interactive.vue"
 
 export default {
   name: 'app',
   components: {
     Intro,
-    Recorder,
-    CueCard
+    Interactive,
   }
 }
 </script>

@@ -67,6 +67,7 @@ export default {
       await this.recorder.stopRecording();
       let blob = await this.recorder.getBlob();
       this.blobURL = URL.createObjectURL(blob);
+      this.$emit("update:blob", blob)
     },
 
     async toggleRecording() {
