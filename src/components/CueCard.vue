@@ -1,9 +1,18 @@
 <template>
   <div class="cue-card">
     <v-flex>
-      <v-card flat color="green" max-width="450" min-height="360">
-        <v-card-text class="display-2">{{ text }}</v-card-text>
-      </v-card>
+      <v-sheet flat
+        color="green"
+        max-width="450"
+        min-height="360"
+        class="py-5"
+      >
+        <v-layout column fill-height justify-space-between>
+          <v-flex class="my-5">
+            <p class="display-2">{{ text }}</p>
+          </v-flex>
+        </v-layout>
+      </v-sheet>
     </v-flex>
   </div>
 </template>
