@@ -39,7 +39,6 @@ export default {
       }
 
       this.records.push(record)
-      this.text = ""
       this.blob = null
     }
   }
