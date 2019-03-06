@@ -1,33 +1,37 @@
 <template>
   <div class="recorder">
     <v-flex>
-      <v-sheet
-        class="pa-4"
-        height="300"
-        width="500"
-        color="grey lighten-2"
-      >
-        <v-layout align-center justify-space-around column fill-height>
-
-          <v-flex shrink>
+      <v-sheet class="pa-4" color="grey lighten-2" min-width="450" min-height="360">
+        <v-layout justify-space-around column fill-height>
+          <v-flex class="ma-2">
             <h2>Recording...</h2>
           </v-flex>
 
-          <v-flex grow class="pa-4">
+          <v-flex class="ma-4">
             <v-icon>fas fa-microphone-alt fa-10x</v-icon>
           </v-flex>
 
-          <v-flex shrink>  
-            <v-btn
-              fab small color="primary"
-              @click="toggleRecording"
-            >
-              <v-icon color="red">fas {{ iconState }}</v-icon>
-            </v-btn>
-          </v-flex>
+          <v-flex class="ma-2">
+            <v-layout align-center justify-space-between wrap>
+              <v-flex>
+                <v-btn
+                  fab
+                  depressed
+                  color="primary"
+                  :loading="loading"
+                  :disabled="loading"
+                  @click="toggleRecording"
+                >
+                  <v-icon color="red">fas fa-{{ iconState }}</v-icon>
+                </v-btn>
+              </v-flex>
 
+              <v-flex>
+                <audio id="player" ref="player" controls :src="blobURL"/>
+              </v-flex>
+            </v-layout>
+          </v-flex>
         </v-layout>
-        
       </v-sheet>
     </v-flex>
   </div>
@@ -35,37 +39,46 @@
 
 
 <script>
-import { RecordRTCPromisesHandler, invokeSaveAsDialog } from "recordrtc"
-import { async } from 'q'
+import { RecordRTCPromisesHandler } from "recordrtc";
 
 export default {
   name: "Recorder",
-  data: () => {
+  data() {
     return {
       recorder: null,
-      iconState: "fa-circle"
-    }
+      iconState: "circle",
+      loading: false,
+      blobURL: ""
+    };
   },
-  mounted: async function() {
-    let stream = navigator.mediaDevices.getUserMedia({audio: true})
-    let config = { type: "audio", mimeType: "audio/wav" }
+  async mounted() {
+    let stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    let config = { type: "audio" };
 
-    this.recorder = await new RecordRTCPromisesHandler(stream, config)
+    this.recorder = new RecordRTCPromisesHandler(stream, config);
   },
   methods: {
     startRecording() {
-      this.recorder.startRecording()
+      this.recorder.startRecording();
     },
 
     async stopRecording() {
-      await this.recorder.stopRecording()
-      let blob = await this.recorder.getBlob()
-      invokeSaveAsDialog(blob);
+      await this.recorder.stopRecording();
+      let blob = await this.recorder.getBlob();
+      this.blobURL = URL.createObjectURL(blob);
     },
 
-    toggleRecording() {
-      this.iconState = this.iconState === "fa-circle" ? "fa-stop" : "fa-circle"
+    async toggleRecording() {
+      if (this.iconState === "circle") {
+        this.startRecording();
+        this.iconState = "stop";
+      } else {
+        this.loading = true;
+        await this.stopRecording();
+        this.loading = false;
+        this.iconState = "circle";
+      }
     }
   }
-}
+};
 </script>
