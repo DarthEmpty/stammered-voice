@@ -1,10 +1,10 @@
 <template>
   <div class="recorder">
     <v-flex>
-      <v-sheet class="pa-4" color="grey lighten-2" min-width="450" min-height="360">
+      <v-sheet class="pa-4" color="grey lighten-2" min-width="450" height="360">
         <v-layout justify-space-around column fill-height>
-          <v-flex class="ma-2">
-            <h2>Recording...</h2>
+          <v-flex>
+            <p class="headline">{{ headingState }}</p>
           </v-flex>
 
           <v-flex class="ma-4">
@@ -46,6 +46,7 @@ export default {
   data() {
     return {
       recorder: null,
+      headingState: "Hit the red button to record yourself",
       iconState: "circle",
       loading: false,
       blobURL: ""
@@ -71,11 +72,13 @@ export default {
     async toggleRecording() {
       if (this.iconState === "circle") {
         this.startRecording();
+        this.headingState = "Recording..."
         this.iconState = "stop";
       } else {
         this.loading = true;
         await this.stopRecording();
         this.loading = false;
+        this.headingState = "Hit the red button to record yourself"
         this.iconState = "circle";
       }
     }

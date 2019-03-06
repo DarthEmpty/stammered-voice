@@ -11,7 +11,7 @@
           </v-flex>
 
           <v-flex grow class="my-3 px-3">
-            <p class="display-2">{{ possibleTexts[textIndex] }}</p>
+            <p class="display-1">{{ possibleTexts[textIndex] }}</p>
           </v-flex>
               
           <v-flex shrink>
