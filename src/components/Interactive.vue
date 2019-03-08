@@ -1,7 +1,7 @@
 <template>
   <div id="interactive">
     <v-flex>
-      <v-layout align-center justify-space-between fill-height wrap>
+      <v-layout justify-center fill-height wrap>
         <recorder
           :blob.sync="blob"
         />

@@ -4,7 +4,7 @@
       <v-sheet class="pa-4" color="grey lighten-2" min-width="450" height="360">
         <v-layout justify-space-around column fill-height>
           <v-flex>
-            <p class="headline">{{ headingState }}</p>
+            <h5 class="headline">{{ headingState }}</h5>
           </v-flex>
 
           <v-flex class="ma-4">
@@ -75,6 +75,7 @@ export default {
         this.startRecording();
         this.headingState = "Recording..."
         this.iconState = "stop";
+
       } else {
         this.loading = true;
         await this.stopRecording();
