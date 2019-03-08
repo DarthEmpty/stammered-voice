@@ -4,10 +4,10 @@
       <v-layout justify-center fill-height wrap>
         <recorder
           :blob.sync="blob"
-          :defaultState="defaultState"
+          :defaultState="blob === null"
         />
         <cue-card
-          :nextDisabled="defaultState"
+          :nextDisabled="blob === null"
           @update:text="store"
         />
       </v-layout>
@@ -31,11 +31,6 @@ export default {
   components: {
     Recorder,
     CueCard
-  },
-  computed: {
-    defaultState() {
-      return this.blob === null
-    }
   },
   methods: {
     store(text) {

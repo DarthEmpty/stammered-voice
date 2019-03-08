@@ -4,7 +4,7 @@
       <v-sheet class="pa-4" color="grey lighten-2" min-width="450" height="360">
         <v-layout justify-space-around column fill-height>
           <v-flex>
-            <h5 class="headline">{{ headingState }}</h5>
+            <h5 class="headline">{{ heading }}</h5>
           </v-flex>
 
           <v-flex class="ma-4">
@@ -49,7 +49,6 @@ export default {
   data() {
     return {
       recorder: null,
-      headingState: "Hit the red button to record yourself.",
       iconState: "circle",
       loading: false,
       blobURL: ""
@@ -64,7 +63,18 @@ export default {
   },
   computed: {
     showAudio() {
-      return !this.defaultState && this.blobURL && this.iconState === 'circle' 
+      return !this.defaultState && this.blobURL && this.iconState === "circle"
+    },
+    heading() {
+      if (this.iconState === "stop") {
+        return "Recording..."
+
+      } else if (!this.defaultState) {
+        return "Listen back to your voice!"
+
+      }
+
+      return "Hit the red button to record yourself."
     }
   },
   methods: {
@@ -82,15 +92,12 @@ export default {
     async toggleRecording() {
       if (this.iconState === "circle") {
         this.startRecording();
-        this.headingState = "Recording..."
         this.iconState = "stop";
 
       } else {
         this.loading = true;
         await this.stopRecording();
         this.loading = false;
-        this.playing = true;
-        this.headingState = "Listen back to your voice!"
         this.iconState = "circle";
       }
     }
