@@ -1,13 +1,13 @@
 <template>
-  <div class="intro ma-3">
-    <v-flex class="ma-5">
-      <h1 class="display-2">Welcome to Stuttered Voice</h1>
+  <div class="intro my-5">
+    <v-flex class="my-5">
+      <h1 class="headline">Welcome to</h1>
+      <h1 class="display-3">Stammered Voice</h1>
     </v-flex>
         
-    <v-flex class="ma-5">
+    <v-flex class="my-5 px-5">
       <p class="body-1">
-        Some text is going to go here to breifly explain the goals of this web app.
-        Bla bla bla... something about a PhD bla bla... revolutionising voice assistants bla bla...
+        This site is the product of a PhD student gathering data for his thesis. edicated to improving systems like <strong>Google Home</strong> and <strong>Amazon Echo</strong> in a way that allows them to understand stammered speech.
       </p>
     </v-flex>
   </div>
