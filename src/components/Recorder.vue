@@ -15,8 +15,7 @@
             <v-layout align-center justify-space-between wrap>
               <v-flex>
                 <v-btn
-                  fab
-                  depressed
+                  fab depressed
                   color="primary"
                   :loading="loading"
                   :disabled="loading"
@@ -25,9 +24,13 @@
                   <v-icon color="red">fas fa-{{ iconState }}</v-icon>
                 </v-btn>
               </v-flex>
-
-              <v-flex>
-                <audio id="player" ref="player" controls :src="blobURL"/>
+            
+              <v-flex v-if="showAudio">
+                <audio
+                  id="player" ref="player"
+                  controls
+                  :src="blobURL"
+                />
               </v-flex>
             </v-layout>
           </v-flex>
@@ -46,17 +49,23 @@ export default {
   data() {
     return {
       recorder: null,
-      headingState: "Hit the red button to record yourself",
+      headingState: "Hit the red button to record yourself.",
       iconState: "circle",
       loading: false,
       blobURL: ""
     };
   },
+  props: [ "defaultState" ],
   async mounted() {
     let stream = await navigator.mediaDevices.getUserMedia({ audio: true });
     let config = { type: "audio" };
 
     this.recorder = new RecordRTCPromisesHandler(stream, config);
+  },
+  computed: {
+    showAudio() {
+      return !this.defaultState && this.blobURL && this.iconState === 'circle' 
+    }
   },
   methods: {
     startRecording() {
@@ -80,7 +89,8 @@ export default {
         this.loading = true;
         await this.stopRecording();
         this.loading = false;
-        this.headingState = "Hit the red button to record yourself"
+        this.playing = true;
+        this.headingState = "Listen back to your voice!"
         this.iconState = "circle";
       }
     }
