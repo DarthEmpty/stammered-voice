@@ -4,10 +4,10 @@
       <v-layout justify-center fill-height wrap>
         <recorder
           :blob.sync="blob"
-          :defaultState="blob === null"
+          :defaultState="!blob"
         />
         <cue-card
-          :nextDisabled="blob === null"
+          :nextDisabled="!blob"
           @update:text="store"
         />
       </v-layout>
@@ -24,7 +24,7 @@ export default {
   name: "Interactive",
   data() {
     return {
-      blob: null,
+      blob: "",
       records: []
     }
   },
@@ -37,10 +37,10 @@ export default {
       let record = {
         text,
         blob: this.blob
-      }
+      };
 
-      this.records.push(record)
-      this.blob = null
+      this.records.push(record);
+      this.blob = "";
     }
   }
 }
