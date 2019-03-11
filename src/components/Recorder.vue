@@ -82,11 +82,18 @@ export default {
       this.recorder.startRecording();
     },
 
+    emitBase64(blob) {
+      let reader = new FileReader();
+      reader.onload = () => this.$emit("update:blob", reader.result.split(",")[1]);
+      reader.readAsDataURL(blob);
+    },
+
     async stopRecording() {
       await this.recorder.stopRecording();
+
       let blob = await this.recorder.getBlob();
       this.blobURL = URL.createObjectURL(blob);
-      this.$emit("update:blob", blob)
+      this.emitBase64(blob);
     },
 
     async toggleRecording() {
