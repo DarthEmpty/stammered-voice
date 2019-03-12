@@ -56,10 +56,14 @@ export default {
   },
   props: [ "defaultState" ],
   async mounted() {
-    let stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    let config = { type: "audio" };
-
-    this.recorder = new RecordRTCPromisesHandler(stream, config);
+    navigator.mediaDevices.getUserMedia({ audio: true })
+    .then(stream => {
+      let config = { type: "audio" }
+      this.recorder = new RecordRTCPromisesHandler(stream, config)
+    })
+    .catch(err => {
+      this.$emit("update:micError", err)
+    })
   },
   computed: {
     showAudio() {
