@@ -81,7 +81,12 @@ export default {
     async submit() {
       let result = await this.$validator.validate()
       if (result) {
-        this.$emit("log-in")
+        if (this.signUp) {
+          this.$emit("sign-up", this.username, this.password)
+        
+        } else {
+          this.$emit("log-in", this.username, this.password)
+        }
       }
     }
   }

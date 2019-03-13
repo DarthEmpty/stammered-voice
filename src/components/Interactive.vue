@@ -1,6 +1,10 @@
 <template>
   <div id="interactive">
-    <login v-if="!loggedIn" @log-in="loggedIn = true"/>
+    <login
+      v-if="!loggedIn && !micError"
+      @sign-up="addCredentials"
+      @log-in="checkCredentials"
+    />
 
     <v-flex v-if="loggedIn && !micError">
       <v-layout justify-center fill-height wrap>
@@ -25,6 +29,7 @@
 import feathers from "@feathersjs/feathers"
 import io from "socket.io-client"
 import socketio from "@feathersjs/socketio-client"
+import authentication from "@feathersjs/authentication-client"
 
 import Login from "./Login.vue"
 import Recorder from "./Recorder.vue"
@@ -39,17 +44,22 @@ export default {
       micError: null,
       blob: "",
       records: [],
+      client: null,
       participantsService: null,
       recordingsService: null
     };
   },
   mounted() {
     let socket = io("http://localhost:3030")
-    let client = feathers()
-    client.configure(socketio(socket))
+    this.client = feathers()
+    this.client.configure(socketio(socket))
 
-    this.participantsService = client.service("participants")
-    this.recordingsService = client.service("recordings")
+    this.client.configure(authentication({
+      storage: window.localStorage
+    }));
+
+    this.participantsService = this.client.service("participants")
+    this.recordingsService = this.client.service("recordings")
   },
   components: {
     Login,
@@ -58,6 +68,29 @@ export default {
     MicErrorDialog
   },
   methods: {
+    addCredentials(username, password) {
+      this.participantsService.create({ username, password })
+      .then(() => this.loggedIn = true)
+      .catch(err => {this.micError = err})
+    },
+    checkCredentials(username, password) {
+      this.client.authenticate({
+        strategy: "local",
+        username,
+        password
+      })
+      .then(result => {
+        console.log(result)
+        if (result) {
+          this.loggedIn = true
+        }
+      })
+      .catch(err => {
+        console.log(err)
+        this.micError = err
+      })
+        
+    },
     store(text) {
       let record = {
         text,
