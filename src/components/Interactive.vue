@@ -22,6 +22,10 @@
 
 
 <script>
+import feathers from "@feathersjs/feathers"
+import io from "socket.io-client"
+import socketio from "@feathersjs/socketio-client"
+
 import Login from "./Login.vue"
 import Recorder from "./Recorder.vue"
 import CueCard from "./CueCard.vue"
@@ -34,8 +38,18 @@ export default {
       loggedIn: false,
       micError: null,
       blob: "",
-      records: []
+      records: [],
+      participantsService: null,
+      recordingsService: null
     };
+  },
+  mounted() {
+    let socket = io("http://localhost:3030")
+    let client = feathers()
+    client.configure(socketio(socket))
+
+    this.participantsService = client.service("participants")
+    this.recordingsService = client.service("recordings")
   },
   components: {
     Login,
