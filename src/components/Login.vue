@@ -2,6 +2,8 @@
   <div id="login">
     <v-flex>
       <v-sheet color="grey lighten-3" class="pa-4">
+        <h2 class="headline my-4"> {{ signUp ? "Sign Up" : "Log In" }} </h2>
+
         <form>
           <v-text-field
             id="username"
@@ -34,6 +36,13 @@
           >
             Submit
           </v-btn>
+          <v-btn
+            large flat
+            color="green"
+            @click="signUp = !signUp"
+          >
+            {{ toggleText }}
+          </v-btn>
         </form>
       </v-sheet>
     </v-flex>
@@ -52,12 +61,20 @@ export default {
     return {
       username: "",
       password: "",
-      show: false
+      show: false,
+      signUp: false
     };
   },
   computed: {
     isDisabled() {
       return this.username === "" || this.password === ""
+    },
+    toggleText() {
+      if (this.signUp) {
+        return "Back to Log In"
+      }
+
+      return "Sign Up instead"
     }
   },
   methods: {
