@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuetify from "vuetify"
 import 'vuetify/dist/vuetify.min.css'
 import '@fortawesome/fontawesome-free/css/solid.min.css'
+import '@fortawesome/fontawesome-free/css/brands.min.css'
 import '@fortawesome/fontawesome-free/css/fontawesome.min.css'
 import VeeValidate from 'vee-validate'
 import App from './App.vue'

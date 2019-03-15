@@ -1,5 +1,5 @@
 <template>
-  <div class="intro my-5">
+  <div id="intro" class="my-5">
     <v-flex class="my-5">
       <h1 class="headline">Welcome to</h1>
       <h1 class="display-3">Stammered Voice</h1>
