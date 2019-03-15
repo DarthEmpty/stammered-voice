@@ -30,7 +30,8 @@
           />
           <v-btn
             large depressed
-            :disabled="isDisabled"
+            :disabled="buttonsDisabled || isDisabled"
+            :loading="buttonsDisabled"
             color="green" 
             @click="submit"
           >
@@ -38,6 +39,7 @@
           </v-btn>
           <v-btn
             large flat
+            :disabled="buttonsDisabled"
             color="green"
             @click="signUp = !signUp"
           >
@@ -62,6 +64,7 @@ export default {
       username: "",
       password: "",
       show: false,
+      buttonsDisabled: false,
       signUp: false
     };
   },
@@ -70,11 +73,7 @@ export default {
       return this.username === "" || this.password === ""
     },
     toggleText() {
-      if (this.signUp) {
-        return "Back to Log In"
-      }
-
-      return "Sign Up instead"
+      return this.signUp ? "Back to Log In" : "Sign Up instead"
     }
   },
   methods: {
@@ -87,6 +86,8 @@ export default {
         } else {
           this.$emit("log-in", this.username, this.password)
         }
+        
+        this.buttonsDisabled = true
       }
     }
   }
