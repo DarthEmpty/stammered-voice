@@ -20,7 +20,7 @@
       </v-layout>
     </v-flex>
 
-    <error-dialog :error="error" />
+    <error-dialog v-if="error" :error="error" />
   </div>
 </template>
 
