@@ -50,9 +50,8 @@ export default {
     };
   },
   mounted() {
-    let socket = io("http://localhost:3030")
     this.client = feathers()
-    this.client.configure(socketio(socket))
+    this.client.configure(socketio(io("http://localhost:3030")))
 
     this.client.configure(authentication({
       storage: window.localStorage
@@ -71,7 +70,7 @@ export default {
     addCredentials(username, password) {
       this.participantsService.create({ username, password })
       .then(() => this.loggedIn = true)
-      .catch(err => {this.micError = err})
+      .catch(err => this.micError = err)
     },
     checkCredentials(username, password) {
       this.client.authenticate({
@@ -79,17 +78,13 @@ export default {
         username,
         password
       })
-      .then(result => {
-        console.log(result)
-        if (result) {
-          this.loggedIn = true
-        }
+      .then(response => this.client.passport.verifyJWT(response.accessToken))
+      .then(payload => this.participantsService.get(payload.participantId))
+      .then(participant => {
+        this.client.set("participant", participant)
+        this.loggedIn = true
       })
-      .catch(err => {
-        console.log(err)
-        this.micError = err
-      })
-        
+      .catch(err => this.micError = err)
     },
     store(text) {
       let record = {
