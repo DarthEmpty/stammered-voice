@@ -1,17 +1,17 @@
 <template>
   <div id="interactive">
     <login
-      v-if="!participant && !micError"
+      v-if="!participant && !error"
       @sign-up="addCredentials"
       @log-in="checkCredentials"
     />
 
-    <v-flex v-if="participant && !micError">
+    <v-flex v-if="participant && !error">
       <v-layout justify-center fill-height wrap>
         <recorder
           :blob.sync="blob"
           :defaultState="!blob"
-          :micError.sync="micError"
+          :micError.sync="error"
         />
         <cue-card
           :nextDisabled="!blob"
@@ -20,7 +20,7 @@
       </v-layout>
     </v-flex>
 
-    <mic-error-dialog :micError="micError" />
+    <error-dialog :error="error" />
   </div>
 </template>
 
@@ -34,14 +34,14 @@ import authentication from "@feathersjs/authentication-client"
 import Login from "./Login.vue"
 import Recorder from "./Recorder.vue"
 import CueCard from "./CueCard.vue"
-import MicErrorDialog from "./MicErrorDialog.vue"
+import ErrorDialog from "./ErrorDialog.vue"
 
 export default {
   name: "Interactive",
   data() {
     return {
       participant: null,
-      micError: null,
+      error: null,
       blob: "",
       client: null,
       participants: null,
@@ -63,7 +63,7 @@ export default {
     Login,
     Recorder,
     CueCard,
-    MicErrorDialog
+    ErrorDialog
   },
   methods: {
     checkCredentials(username, password) {
@@ -75,12 +75,12 @@ export default {
       .then(response => this.client.passport.verifyJWT(response.accessToken))
       .then(payload => this.participants.get(payload.participantId))
       .then(participant => this.participant = participant)
-      .catch(err => this.micError = err)
+      .catch(err => this.error = err)
     },
     addCredentials(username, password) {
       this.participants.create({ username, password })
       .then(() => this.checkCredentials(username, password))
-      .catch(err => this.micError = err)
+      .catch(err => this.error = err)
     },
     store(text) {
       this.recordings.create({
