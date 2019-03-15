@@ -1,12 +1,12 @@
 <template>
   <div id="interactive">
     <login
-      v-if="!loggedIn && !micError"
+      v-if="!participant && !micError"
       @sign-up="addCredentials"
       @log-in="checkCredentials"
     />
 
-    <v-flex v-if="loggedIn && !micError">
+    <v-flex v-if="participant && !micError">
       <v-layout justify-center fill-height wrap>
         <recorder
           :blob.sync="blob"
@@ -40,13 +40,12 @@ export default {
   name: "Interactive",
   data() {
     return {
-      loggedIn: false,
+      participant: null,
       micError: null,
       blob: "",
-      records: [],
       client: null,
-      participantsService: null,
-      recordingsService: null
+      participants: null,
+      recordings: null
     };
   },
   mounted() {
@@ -57,8 +56,8 @@ export default {
       storage: window.localStorage
     }));
 
-    this.participantsService = this.client.service("participants")
-    this.recordingsService = this.client.service("recordings")
+    this.participants = this.client.service("participants")
+    this.recordings = this.client.service("recordings")
   },
   components: {
     Login,
@@ -67,11 +66,6 @@ export default {
     MicErrorDialog
   },
   methods: {
-    addCredentials(username, password) {
-      this.participantsService.create({ username, password })
-      .then(() => this.loggedIn = true)
-      .catch(err => this.micError = err)
-    },
     checkCredentials(username, password) {
       this.client.authenticate({
         strategy: "local",
@@ -79,20 +73,22 @@ export default {
         password
       })
       .then(response => this.client.passport.verifyJWT(response.accessToken))
-      .then(payload => this.participantsService.get(payload.participantId))
-      .then(participant => {
-        this.client.set("participant", participant)
-        this.loggedIn = true
-      })
+      .then(payload => this.participants.get(payload.participantId))
+      .then(participant => this.participant = participant)
+      .catch(err => this.micError = err)
+    },
+    addCredentials(username, password) {
+      this.participants.create({ username, password })
+      .then(() => this.checkCredentials(username, password))
       .catch(err => this.micError = err)
     },
     store(text) {
-      let record = {
+      this.recordings.create({
+        participantId: this.participant.id,
         text,
-        blob: this.blob
-      };
+        sound: this.blob
+      })
 
-      this.records.push(record);
       this.blob = "";
     }
   }
