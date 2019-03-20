@@ -17,7 +17,7 @@ export default {
   props: [ "error" ],
   computed: {
     message() {
-      return this.error.type === "FeathersError"
+      return this.error.type === "FeathersError" && this.error.name !== "Timeout"
         ? this.error.errors.map(error => error.message).join("\n")
         : this.error.message
     }

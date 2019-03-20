@@ -31,17 +31,9 @@
 export default {
   name: "CueCard",
   data() {
-    return {
-      textIndex: 0,
-      possibleTexts: [
-        "Sphinx of black quartz, judge my vow",
-        "How much wood would a woodchuck chuck if a woodchuck could chuck wood?",
-        "Small",
-        "To err is human"
-      ]
-    }
+    return { textIndex: 0 }
   },
-  props: [ "nextDisabled" ],
+  props: [ "possibleTexts", "nextDisabled" ],
   methods: {
     shuffle(a) {
       for (let i = a.length; i; i--) {
