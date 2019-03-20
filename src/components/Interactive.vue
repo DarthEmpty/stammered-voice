@@ -17,6 +17,7 @@
           :possibleTexts="phraseList"
           :nextDisabled="!blob"
           @update:text="store"
+          @request-texts="getRandomPhrases"
         />
       </v-layout>
     </v-flex>
@@ -71,6 +72,27 @@ export default {
     ErrorDialog
   },
   methods: {
+    async getRandomPhrases() {
+      if (this.phrases.total === undefined) {
+        let res = await this.phrases.find({
+          query: { $limit: 0 }
+        }).catch(err => this.error = err)
+
+        this.phrases.total = res.total
+      }
+      
+      let ids = new Set()
+      while (ids.size < 5) {
+        ids.add(Math.ceil(Math.random() * this.phrases.total))
+      }
+
+      let chosenPhrases = await Promise
+      .all(Array.from(ids).map(id => this.phrases.get(id)))
+      .catch(err => this.error = err)
+
+      this.phraseList = chosenPhrases.map(res => res.phrase)
+    },
+
     checkCredentials(username, password) {
       this.client.authenticate({
         strategy: "local",
@@ -79,8 +101,8 @@ export default {
       })
       .then(response => this.client.passport.verifyJWT(response.accessToken))
       .then(payload => this.participants.get(payload.participantId))
-      .then(participant => {
-        this.getPhrases()
+      .then(async participant => {
+        await this.getRandomPhrases()
         this.participant = participant
       })
       .catch(err => this.error = err)
@@ -89,15 +111,6 @@ export default {
     addCredentials(username, password) {
       this.participants.create({ username, password })
       .then(() => this.checkCredentials(username, password))
-      .catch(err => this.error = err)
-    },
-
-    getPhrases() {
-      this.phrases.find()
-      .then(response => {
-        console.log(response)
-        this.phraseList = response.data.map(obj => obj.phrase)
-      })
       .catch(err => this.error = err)
     },
 

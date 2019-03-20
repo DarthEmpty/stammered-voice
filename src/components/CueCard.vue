@@ -16,7 +16,7 @@
               
           <v-flex shrink>
             <v-btn large flat icon :disabled="nextDisabled" @click="nextText">
-              <v-icon>fas fa-arrow-right</v-icon>
+              <v-icon>fas fa-{{ nextIcon }}</v-icon>
             </v-btn>
           </v-flex>
 
@@ -34,25 +34,20 @@ export default {
     return { textIndex: 0 }
   },
   props: [ "possibleTexts", "nextDisabled" ],
+  computed: {
+    nextIcon() {
+      return this.textIndex === this.possibleTexts.length - 1 ? "undo" : "arrow-right" 
+    }
+  },
   methods: {
-    shuffle(a) {
-      for (let i = a.length; i; i--) {
-        let j = Math.floor(Math.random() * i);
-        [a[i - 1], a[j]] = [a[j], a[i - 1]]
-      }
-    },
-
     nextText() {
       this.$emit("update:text", this.possibleTexts[this.textIndex])
       this.textIndex = (this.textIndex + 1) % this.possibleTexts.length
       
       if (this.textIndex === 0) {
-        this.shuffle(this.possibleTexts)
+        this.$emit("request-texts")
       }
-    }
-  },
-  created() {
-    this.shuffle(this.possibleTexts)
+    },
   }
 }
 </script>
