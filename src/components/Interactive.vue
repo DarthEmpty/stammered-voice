@@ -73,56 +73,74 @@ export default {
   },
   methods: {
     async getRandomPhrases() {
-      if (this.phrases.total === undefined) {
-        let res = await this.phrases.find({
-          query: { $limit: 0 }
-        }).catch(err => this.error = err)
+      try {
+        // Get total number of phrases if not already known
+        if (this.phrases.total === undefined) {
+          let res = await this.phrases.find({ query: { $limit: 0 } })
+          this.phrases.total = res.total
+        }
 
-        this.phrases.total = res.total
+        // Generate 5 random unique ids between 1 and total number of phrases
+        let ids = new Set()
+        while (ids.size < 5) {
+          ids.add(Math.ceil(Math.random() * this.phrases.total))
+        }
+  
+        // Get corresponding phrases
+        let chosenPhrases = await Promise.all(
+          Array.from(ids).map(id => this.phrases.get(id))
+        )
+  
+        // Put phrases in the phrase list
+        this.phraseList = chosenPhrases.map(res => res.phrase)
+
+      } catch (error) {
+        this.error = error
       }
       
-      let ids = new Set()
-      while (ids.size < 5) {
-        ids.add(Math.ceil(Math.random() * this.phrases.total))
-      }
-
-      let chosenPhrases = await Promise
-      .all(Array.from(ids).map(id => this.phrases.get(id)))
-      .catch(err => this.error = err)
-
-      this.phraseList = chosenPhrases.map(res => res.phrase)
     },
 
-    checkCredentials(username, password) {
-      this.client.authenticate({
-        strategy: "local",
-        username,
-        password
-      })
-      .then(response => this.client.passport.verifyJWT(response.accessToken))
-      .then(payload => this.participants.get(payload.participantId))
-      .then(async participant => {
+    async checkCredentials(username, password) {
+      try {
+        let response = await this.client.authenticate({
+          strategy: "local",
+          username,
+          password
+        })
+        let payload = await this.client.passport.verifyJWT(response.accessToken)
+        let participant = await this.participants.get(payload.participantId)
+        
         await this.getRandomPhrases()
         this.participant = participant
-      })
-      .catch(err => this.error = err)
+        
+      } catch (error) {
+        this.error = error
+      }
     },
 
-    addCredentials(username, password) {
-      this.participants.create({ username, password })
-      .then(() => this.checkCredentials(username, password))
-      .catch(err => this.error = err)
+    async addCredentials(username, password) {
+      try {
+        await this.participants.create({ username, password })
+        this.checkCredentials(username, password)
+        
+      } catch (error) {
+        this.error = error
+      }
     },
 
-    store(text) {
-      this.recordings.create({
-        participantId: this.participant.id,
-        text,
-        sound: this.blob
-      })
-      .catch(err => this.error = err)
+    async store(text) {
+      try {
+        await this.recordings.create({
+          participantId: this.participant.id,
+          text,
+          sound: this.blob
+        })
 
-      this.blob = "";
+        this.blob = "";
+        
+      } catch (error) {
+        this.error = error
+      }
     }
   }
 }
