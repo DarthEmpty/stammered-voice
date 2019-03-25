@@ -7,7 +7,7 @@
     />
 
     <v-flex v-if="participant && !error">
-      <v-layout justify-center fill-height wrap>
+      <v-layout justify-center row wrap>
         <recorder
           :blob.sync="blob"
           :defaultState="!blob"

@@ -1,7 +1,7 @@
 <template>
   <div class="cue-card">
-    <v-flex grow>
-      <v-sheet flat color="green" width="450" height="360" class="py-3">
+    <v-flex xs12>
+      <v-sheet flat color="green" height="360" class="py-3">
         <v-layout column fill-height justify-space-between>
 
           <v-flex>
