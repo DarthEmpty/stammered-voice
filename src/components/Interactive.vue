@@ -80,9 +80,14 @@ export default {
           this.phrases.total = res.total
         }
 
-        // Generate 5 random unique ids between 1 and total number of phrases
+        // Throw an error if there are no phrases in the database
+        if (this.phrases.total === 0) {
+          throw new Error("No phrases in the database")
+        }
+
+        // Generate 5 (or fewer) random unique ids between 1 and total number of phrases
         let ids = new Set()
-        while (ids.size < 5) {
+        while (ids.size < this.phrases.total && ids.size < 5) {
           ids.add(Math.ceil(Math.random() * this.phrases.total))
         }
   
