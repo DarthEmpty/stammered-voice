@@ -95,9 +95,9 @@ export default {
         let chosenPhrases = await Promise.all(
           Array.from(ids).map(id => this.phrases.get(id))
         )
-  
+
         // Put phrases in the phrase list
-        this.phraseList = chosenPhrases.map(res => res.phrase)
+        this.phraseList = chosenPhrases
 
       } catch (error) {
         this.error = error
@@ -135,9 +135,9 @@ export default {
 
     async store(text) {
       try {
-        await this.recordings.create({
+        this.recordings.create({
           participantId: this.participant.id,
-          text,
+          textId: text.id,
           sound: this.blob
         })
 
