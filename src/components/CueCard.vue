@@ -1,7 +1,7 @@
 <template>
   <div class="cue-card">
-    <v-flex xs12>
-      <v-sheet flat color="green" height="360" class="py-3">
+    <v-flex>
+      <v-sheet color="green" class="pa-4" height="350" :width="width">
         <v-layout column fill-height justify-space-between>
 
           <v-flex>
@@ -35,6 +35,9 @@ export default {
   },
   props: [ "possibleTexts", "nextDisabled" ],
   computed: {
+    width() {
+      return this.$vuetify.breakpoint.xsOnly ? "" : "430.88"
+    },
     nextIcon() {
       return this.textIndex === this.possibleTexts.length - 1 ? "undo" : "arrow-right" 
     }

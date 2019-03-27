@@ -1,8 +1,8 @@
 <template>
   <div class="recorder">
-    <v-flex xs12>
-      <v-sheet class="pa-4" color="grey lighten-2" height="360">
-        <v-layout justify-space-around column fill-height>
+    <v-flex>
+      <v-sheet class="pa-4" color="grey lighten-2" height="350">
+        <v-layout column fill-height justify-space-between>
           <v-flex>
             <h5 class="headline">{{ heading }}</h5>
           </v-flex>
