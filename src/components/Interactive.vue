@@ -55,7 +55,7 @@ export default {
   },
   mounted() {
     let serverURL = process.env.NODE_ENV == "production"
-      ? "https://stammered-voice.cs.rhul.ac.uk:443"
+      ? "https://10.201.200.213:443"
       : "http://localhost:3030"
 
     this.client = feathers()
