@@ -55,7 +55,7 @@ export default {
   },
   mounted() {
     this.client = feathers()
-    this.client.configure(socketio(io(process.env.SERVER_URL)))
+    this.client.configure(socketio(io("http://localhost:3030")))
 
     this.client.configure(authentication({
       storage: window.localStorage
