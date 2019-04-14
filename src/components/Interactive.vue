@@ -54,8 +54,12 @@ export default {
     };
   },
   mounted() {
+    let serverURL = process.env.NODE_ENV == "production"
+      ? "https://stammered-voice.cs.rhul.ac.uk:443"
+      : "http://localhost:3030"
+
     this.client = feathers()
-    this.client.configure(socketio(io("http://localhost:3030")))
+    this.client.configure(socketio(io(serverURL)))
 
     this.client.configure(authentication({
       storage: window.localStorage
