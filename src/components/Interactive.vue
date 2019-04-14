@@ -55,8 +55,8 @@ export default {
   },
   mounted() {
     let serverURL = process.env.NODE_ENV == "production"
-      ? "https://10.201.200.213:443"
-      : "http://localhost:3030"
+      ? "stammered-voice.cs.rhul.ac.uk:443"
+      : "localhost:3030"
 
     this.client = feathers()
     this.client.configure(socketio(io(serverURL)))
