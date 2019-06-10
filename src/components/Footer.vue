@@ -19,14 +19,14 @@
           <v-btn
             small depressed
             color="red"
-            @click="seeDataOpen = !seeDataOpen"
+            @click.stop="seeDataOpen = true"
           >
             See data
           </v-btn>
           <v-btn
             small depressed
             color="red"
-            @click="deleteDataOpen = !deleteDataOpen"
+            @click.stop="deleteDataOpen = true"
           >
             Delete data
           </v-btn>
@@ -34,7 +34,10 @@
       </v-card>
     </v-footer>
 
-    <see-data-dialog :open="seeDataOpen" />
+    <see-data-dialog
+      :open="seeDataOpen"
+      @close="seeDataOpen = false"
+    />
 
     <delete-data-dialog :open="deleteDataOpen" />
   </div>
