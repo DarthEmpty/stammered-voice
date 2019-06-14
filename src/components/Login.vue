@@ -4,48 +4,18 @@
       <v-sheet color="grey lighten-3" class="pa-4">
         <h2 class="headline my-4"> {{ signUp ? "Sign Up" : "Log In" }} </h2>
 
-        <form>
-          <v-text-field
-            id="username"
-            name="username"
-            v-model="username"
-            label="Enter your username"
-            v-validate="'required|alpha_dash'"
-            :error-messages="errors.collect('username')"
-            outline
-            class="my-2"
-          />
-          <v-text-field
-            id="password"
-            name="password"
-            v-model="password"
-            label="Enter your password"
-            v-validate="'required'"
-            :error-messages="errors.collect('password')"
-            :type="show ? 'text' : 'password'"
-            :append-icon="show ? 'fas fa-eye' : 'fas fa-eye-slash'"
-            @click:append="show = !show"
-            outline
-            class="my-2"
-          />
-          <v-btn
-            large depressed
-            :disabled="buttonsDisabled || isDisabled"
-            :loading="buttonsDisabled"
-            color="green" 
-            @click="submit"
-          >
-            Submit
-          </v-btn>
-          <v-btn
-            large flat
-            :disabled="buttonsDisabled"
-            color="green"
-            @click="signUp = !signUp"
-          >
-            {{ toggleText }}
-          </v-btn>
-        </form>
+        <login-form 
+          @submit="decideMethod"
+        />
+
+        <v-btn
+          large flat
+          :disabled="buttonsDisabled"
+          color="green"
+          @click="signUp = !signUp"
+        >
+          {{ toggleText }}
+        </v-btn>
       </v-sheet>
     </v-flex>
   </div>
@@ -53,42 +23,31 @@
 
 
 <script>
-export default {
-  $_veeValidate: {
-    validator: "new"
-  },
+import LoginForm from "./LoginForm"
 
+export default {
   name: "Login",
   data() {
-    return {
-      username: "",
-      password: "",
-      show: false,
-      buttonsDisabled: false,
-      signUp: false
-    };
+    return { signUp: false };
+  },
+  components: {
+    LoginForm
   },
   computed: {
-    isDisabled() {
-      return this.username === "" || this.password === ""
-    },
     toggleText() {
       return this.signUp ? "Back to Log In" : "Sign Up instead"
     }
   },
   methods: {
-    async submit() {
-      let result = await this.$validator.validate()
-      if (result) {
-        if (this.signUp) {
-          this.$emit("sign-up", this.username, this.password)
-        
-        } else {
-          this.$emit("log-in", this.username, this.password)
-        }
-        
-        this.buttonsDisabled = true
+    async decideMethod(username, password) {
+      if (this.signUp) {
+        this.$emit("sign-up", username, password)
+      
+      } else {
+        this.$emit("log-in", username, password)
       }
+      
+      this.buttonsDisabled = true
     }
   }
 };
