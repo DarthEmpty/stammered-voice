@@ -9,7 +9,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    client: null
+    client: null,
+    user: null
   },
 
   getters: {
@@ -30,12 +31,27 @@ export default new Vuex.Store({
       state.client.configure(authentication({
         storage: window.localStorage
       }));
+    },
+
+    setUser(state, user) {
+      state.user = user
     }
   },
 
   actions: {
-    async initDatabaseConnection({ commit }) {
+    initDatabaseConnection({ commit }) {
       commit("initDatabaseConnection")
-    }
+    },
+
+    async checkUser({ commit, state, getters }, credentials) {
+      let response = await state.client.authenticate({
+        strategy: "local",
+        username: credentials.username,
+        password: credentials.password
+      })
+      let payload = await state.client.passport.verifyJWT(response.accessToken)
+      let participant = await getters.participants.get(payload.participantId)
+      commit("setUser", participant)
+    },
   }
 })

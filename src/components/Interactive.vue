@@ -1,12 +1,12 @@
 <template>
   <div id="interactive">
     <login
-      v-if="!participant && !error"
+      v-if="phraseList.length === 0 && !error"
       @sign-up="addCredentials"
-      @log-in="checkCredentials"
+      @log-in="login"
     />
 
-    <v-flex v-if="participant && !error">
+    <v-flex v-if="phraseList.length > 0 && !error">
       <v-layout justify-center fill-height row wrap>
         <recorder
           :blob.sync="blob"
@@ -28,7 +28,7 @@
 
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 import Login from "./Login.vue"
 import Recorder from "./Recorder.vue"
@@ -39,7 +39,6 @@ export default {
   name: "Interactive",
   data() {
     return {
-      participant: null,
       error: null,
       blob: "",
       phraseList: [],
@@ -52,10 +51,12 @@ export default {
     ErrorDialog
   },
   computed: {
-    ...mapState([ "client" ]),
+    ...mapState([ "client", "user" ]),
     ...mapGetters([ "participants", "recordings", "phrases" ])
   },
   methods: {
+    ...mapActions([ "checkUser" ]),
+
     async getRandomPhrases() {
       try {
         // Get total number of phrases if not already known
@@ -89,19 +90,11 @@ export default {
       
     },
 
-    async checkCredentials(username, password) {
+    async login(username, password) {
       try {
-        let response = await this.client.authenticate({
-          strategy: "local",
-          username,
-          password
-        })
-        let payload = await this.client.passport.verifyJWT(response.accessToken)
-        let participant = await this.participants.get(payload.participantId)
-        
+        await this.checkUser({username, password})
         await this.getRandomPhrases()
-        this.participant = participant
-        
+
       } catch (error) {
         this.error = error
       }
@@ -110,7 +103,7 @@ export default {
     async addCredentials(username, password) {
       try {
         await this.participants.create({ username, password })
-        this.checkCredentials(username, password)
+        this.login(username, password)
         
       } catch (error) {
         this.error = error
@@ -120,7 +113,7 @@ export default {
     async store(text) {
       try {
         this.recordings.create({
-          participantId: this.participant.id,
+          participantId: this.user.id,
           textId: text.id,
           sound: this.blob
         })
