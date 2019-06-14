@@ -4,9 +4,7 @@
       <v-sheet color="grey lighten-3" class="pa-4">
         <h2 class="headline my-4"> {{ signUp ? "Sign Up" : "Log In" }} </h2>
 
-        <login-form 
-          @submit="decideMethod"
-        />
+        <login-form @submit="decideMethod" />
 
         <v-btn
           large flat
@@ -28,7 +26,9 @@ import LoginForm from "./LoginForm"
 export default {
   name: "Login",
   data() {
-    return { signUp: false };
+    return {
+      signUp: false
+    };
   },
   components: {
     LoginForm
