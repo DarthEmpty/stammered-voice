@@ -3,7 +3,6 @@
     <v-dialog
       v-model="open"
       persistent
-      hide-overlay="false"
       max-width="500"
     >
       <v-card>

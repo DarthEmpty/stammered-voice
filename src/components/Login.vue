@@ -8,7 +8,7 @@
 
         <v-btn
           large flat
-          :disabled="buttonsDisabled"
+          :disabled="disableToggle"
           color="green"
           @click="signUp = !signUp"
         >
@@ -27,7 +27,8 @@ export default {
   name: "Login",
   data() {
     return {
-      signUp: false
+      signUp: false,
+      disableToggle: false
     };
   },
   components: {
@@ -47,7 +48,7 @@ export default {
         this.$emit("log-in", username, password)
       }
       
-      this.buttonsDisabled = true
+      this.disableToggle = true
     }
   }
 };
