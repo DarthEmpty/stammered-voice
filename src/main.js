@@ -13,6 +13,8 @@ Vue.config.productionTip = false
 Vue.use(Vuetify, { iconfont: "fa" })
 Vue.use(VeeValidate)
 
+store.dispatch("initDatabaseConnection")
+
 new Vue({
   store,
   render: h => h(App),

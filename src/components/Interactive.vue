@@ -28,10 +28,7 @@
 
 
 <script>
-import feathers from "@feathersjs/feathers"
-import io from "socket.io-client"
-import socketio from "@feathersjs/socketio-client"
-import authentication from "@feathersjs/authentication-client"
+import { mapState, mapGetters } from 'vuex'
 
 import Login from "./Login.vue"
 import Recorder from "./Recorder.vue"
@@ -46,34 +43,17 @@ export default {
       error: null,
       blob: "",
       phraseList: [],
-
-      client: null,
-      participants: null,
-      recordings: null,
-      phrases: null
     };
-  },
-  mounted() {
-    let serverURL = process.env.NODE_ENV == "production"
-      ? "stammered-voice.cs.rhul.ac.uk:443"
-      : "localhost:3030"
-
-    this.client = feathers()
-    this.client.configure(socketio(io(serverURL)))
-
-    this.client.configure(authentication({
-      storage: window.localStorage
-    }));
-
-    this.participants = this.client.service("participants")
-    this.recordings = this.client.service("recordings")
-    this.phrases = this.client.service("phrases")
   },
   components: {
     Login,
     Recorder,
     CueCard,
     ErrorDialog
+  },
+  computed: {
+    ...mapState([ "client" ]),
+    ...mapGetters([ "participants", "recordings", "phrases" ])
   },
   methods: {
     async getRandomPhrases() {
