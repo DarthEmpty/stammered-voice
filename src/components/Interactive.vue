@@ -13,10 +13,7 @@
         />
       </v-layout>
 
-      <v-btn
-        large flat
-        @click="logout"
-      >
+      <v-btn large flat @click="logout">
         Log Out
       </v-btn>
     </v-flex>
@@ -54,7 +51,7 @@ export default {
     ...mapGetters(["participants", "recordings", "phrases"])
   },
   methods: {
-    ...mapActions(["authenticateUser", "logUserOut"]),
+    ...mapActions(["authenticateUser", "logUserIn", "logUserOut"]),
 
     async getRandomPhrases() {
       try {
@@ -90,8 +87,12 @@ export default {
 
     async login(username, password) {
       try {
-        await this.authenticateUser({ username, password })
-        await this.getRandomPhrases()
+        let user = await this.authenticateUser({ username, password })
+
+        if (user) {
+          this.logUserIn(user)
+          await this.getRandomPhrases()
+        }
 
       } catch (error) {
         this.error = error
