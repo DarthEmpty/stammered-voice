@@ -1,18 +1,10 @@
 <template>
   <div id="interactive">
-    <login
-      v-if="phraseList.length === 0 && !error"
-      @sign-up="addCredentials"
-      @log-in="login"
-    />
+    <login v-if="phraseList.length === 0 && !error" @sign-up="addCredentials" @log-in="login"/>
 
     <v-flex v-if="phraseList.length > 0 && !error">
       <v-layout justify-center fill-height row wrap>
-        <recorder
-          :blob.sync="blob"
-          :defaultState="!blob"
-          :micError.sync="error"
-        />
+        <recorder :blob.sync="blob" :defaultState="!blob" :micError.sync="error"/>
         <cue-card
           :possibleTexts="phraseList"
           :nextDisabled="!blob"
@@ -20,15 +12,22 @@
           @request-texts="getRandomPhrases"
         />
       </v-layout>
+
+      <v-btn
+        large flat
+        @click="logout"
+      >
+        Log Out
+      </v-btn>
     </v-flex>
 
-    <error-dialog v-if="error" :error="error" />
+    <error-dialog v-if="error" :error="error"/>
   </div>
 </template>
 
 
 <script>
-import { mapState, mapGetters, mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions } from "vuex"
 
 import Login from "./Login.vue"
 import Recorder from "./Recorder.vue"
@@ -41,8 +40,8 @@ export default {
     return {
       error: null,
       blob: "",
-      phraseList: [],
-    };
+      phraseList: []
+    }
   },
   components: {
     Login,
@@ -51,11 +50,11 @@ export default {
     ErrorDialog
   },
   computed: {
-    ...mapState([ "client", "user" ]),
-    ...mapGetters([ "participants", "recordings", "phrases" ])
+    ...mapState(["client", "user"]),
+    ...mapGetters(["participants", "recordings", "phrases"])
   },
   methods: {
-    ...mapActions([ "checkUser" ]),
+    ...mapActions(["authenticateUser", "logUserOut"]),
 
     async getRandomPhrases() {
       try {
@@ -75,7 +74,7 @@ export default {
         while (ids.size < this.phrases.total && ids.size < 5) {
           ids.add(Math.ceil(Math.random() * this.phrases.total))
         }
-  
+
         // Get corresponding phrases
         let chosenPhrases = await Promise.all(
           Array.from(ids).map(id => this.phrases.get(id))
@@ -87,12 +86,11 @@ export default {
       } catch (error) {
         this.error = error
       }
-      
     },
 
     async login(username, password) {
       try {
-        await this.checkUser({username, password})
+        await this.authenticateUser({ username, password })
         await this.getRandomPhrases()
 
       } catch (error) {
@@ -100,11 +98,16 @@ export default {
       }
     },
 
+    logout() {
+      this.logUserOut()
+      this.phraseList = []
+    },
+
     async addCredentials(username, password) {
       try {
         await this.participants.create({ username, password })
         this.login(username, password)
-        
+
       } catch (error) {
         this.error = error
       }
@@ -118,8 +121,8 @@ export default {
           sound: this.blob
         })
 
-        this.blob = "";
-        
+        this.blob = ""
+
       } catch (error) {
         this.error = error
       }

@@ -43,7 +43,7 @@ export default new Vuex.Store({
       commit("initDatabaseConnection")
     },
 
-    async checkUser({ commit, state, getters }, credentials) {
+    async authenticateUser({ commit, state, getters }, credentials) {
       let response = await state.client.authenticate({
         strategy: "local",
         username: credentials.username,
@@ -53,5 +53,9 @@ export default new Vuex.Store({
       let participant = await getters.participants.get(payload.participantId)
       commit("setUser", participant)
     },
+
+    logUserOut({ commit }) {
+      commit("setUser", null)
+    }
   }
 })
