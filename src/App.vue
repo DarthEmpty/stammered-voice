@@ -1,12 +1,14 @@
 <template>
   <div id="app">
-    <v-container id="main-container">
-      <v-layout align-center justify-start column>
-        <intro/>
-        <interactive/>
-      </v-layout>
-    </v-container>
-    <Footer/>
+    <v-app>
+      <v-container id="main-container">
+        <v-layout align-center justify-start column>
+          <intro/>
+          <interactive/>
+        </v-layout>
+      </v-container>
+      <Footer/>
+    </v-app>
   </div>
 </template>
 
