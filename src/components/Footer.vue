@@ -39,7 +39,10 @@
       @close="seeDataOpen = false"
     />
 
-    <delete-data-dialog :open="deleteDataOpen" />
+    <delete-data-dialog
+      :open="deleteDataOpen"
+      @close="deleteDataOpen = false"
+    />
   </div>
 </template>
 
