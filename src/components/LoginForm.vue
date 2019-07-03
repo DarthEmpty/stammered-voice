@@ -26,8 +26,8 @@
       />
       <v-btn
         large depressed
-        :disabled="buttonsDisabled || isDisabled"
-        :loading="buttonsDisabled"
+        :disabled="disabled || fieldsUnfilled"
+        :loading="disabled"
         color="green" 
         @click="submit"
       >
@@ -49,12 +49,12 @@ export default {
     return {
       username: "",
       password: "",
-      show: false,
-      buttonsDisabled: false
+      show: false
     };
   },
+  props: [ "disabled" ],
   computed: {
-    isDisabled() {
+    fieldsUnfilled() {
       return this.username === "" || this.password === ""
     }
   },

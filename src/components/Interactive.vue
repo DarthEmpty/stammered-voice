@@ -1,10 +1,15 @@
 <template>
   <div id="interactive">
-    <login v-if="phraseList.length === 0 && !error" @sign-up="addCredentials" @log-in="login"/>
+    <login
+      v-if="phraseList.length === 0"
+      :disabled.sync="loginDisabled"
+      @sign-up="addCredentials"
+      @log-in="login"
+    />
 
-    <v-flex v-if="phraseList.length > 0 && !error">
+    <v-flex v-if="phraseList.length > 0">
       <v-layout justify-center fill-height row wrap>
-        <recorder :blob.sync="blob" :defaultState="!blob" :micError.sync="error"/>
+        <recorder :blob.sync="blob" :defaultState="!blob" />
         <cue-card
           :possibleTexts="phraseList"
           :nextDisabled="!blob"
@@ -33,7 +38,8 @@ export default {
   data() {
     return {
       blob: "",
-      phraseList: []
+      phraseList: [],
+      loginDisabled: false
     }
   },
   components: {
@@ -100,6 +106,8 @@ export default {
       } catch (error) {
         this.report(error)
       }
+      
+      this.loginDisabled = false
     },
 
     logout() {
@@ -114,6 +122,7 @@ export default {
 
       } catch (error) {
         this.report(error)
+        this.loginDisabled = false
       }
     },
 

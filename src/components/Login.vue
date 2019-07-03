@@ -4,11 +4,14 @@
       <v-sheet color="grey lighten-3" class="pa-4">
         <h2 class="headline my-4"> {{ signUp ? "Sign Up" : "Log In" }} </h2>
 
-        <login-form @submit="decideMethod" />
+        <login-form
+          :disabled="disabled"
+          @submit="decideMethod"
+        />
 
         <v-btn
           large flat
-          :disabled="disableToggle"
+          :disabled="disabled"
           color="green"
           @click="signUp = !signUp"
         >
@@ -27,10 +30,10 @@ export default {
   name: "Login",
   data() {
     return {
-      signUp: false,
-      disableToggle: false
+      signUp: false
     };
   },
+  props: [ "disabled" ],
   components: {
     LoginForm
   },
@@ -48,7 +51,7 @@ export default {
         this.$emit("log-in", username, password)
       }
       
-      this.disableToggle = true
+      this.$emit("update:disabled", true)
     }
   }
 };
