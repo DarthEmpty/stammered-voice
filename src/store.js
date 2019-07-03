@@ -57,7 +57,8 @@ export default new Vuex.Store({
       commit("setUser", participant)
     },
 
-    logUserOut({ commit }) {
+    logUserOut({ commit, state }) {
+      state.client.logout()
       commit("setUser", null)
     }
   }
