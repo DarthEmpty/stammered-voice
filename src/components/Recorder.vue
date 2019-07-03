@@ -102,15 +102,20 @@ export default {
     },
 
     async toggleRecording() {
-      if (this.iconState === "circle") {
-        this.startRecording();
-        this.iconState = "stop";
+      try {
+        if (this.iconState === "circle") {
+          this.startRecording();
+          this.iconState = "stop";
 
-      } else {
-        this.loading = true;
-        await this.stopRecording();
-        this.loading = false;
-        this.iconState = "circle";
+        } else {
+          this.loading = true;
+          await this.stopRecording();
+          this.loading = false;
+          this.iconState = "circle";
+        }
+      
+      } catch(err) {
+        this.report(err)
       }
     }
   }
