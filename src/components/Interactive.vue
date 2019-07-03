@@ -53,6 +53,10 @@ export default {
   methods: {
     ...mapActions(["authenticateUser", "logUserIn", "logUserOut"]),
 
+    report(error) {
+      this.$emit("notify", error.message)
+    },
+
     async getRandomPhrases() {
       try {
         // Get total number of phrases if not already known
@@ -95,7 +99,7 @@ export default {
         }
 
       } catch (error) {
-        this.error = error
+        this.report(error)
       }
     },
 

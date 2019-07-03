@@ -4,10 +4,24 @@
       <v-container id="main-container">
         <v-layout align-center justify-start column>
           <intro/>
-          <interactive/>
+          <interactive @notify="showNotification"/>
         </v-layout>
       </v-container>
       <Footer/>
+
+      <v-snackbar
+        v-model="openSnackbar"
+      >
+        {{ message }}
+
+        <v-btn
+          flat color="primary"
+          @click.native="openSnackbar = false"
+        >
+          Close
+        </v-btn>
+      </v-snackbar>
+
     </v-app>
   </div>
 </template>
@@ -20,10 +34,22 @@ import Footer from "./components/Footer.vue";
 
 export default {
   name: "app",
+  data() {
+    return {
+      openSnackbar: false,
+      message: ""
+    }
+  },
   components: {
     Intro,
     Interactive,
     Footer
+  },
+  methods: {
+    showNotification(message) {
+      this.message = message
+      this.openSnackbar = true
+    }
   }
 };
 </script>
