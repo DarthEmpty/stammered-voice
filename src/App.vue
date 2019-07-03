@@ -4,7 +4,7 @@
       <v-container id="main-container">
         <v-layout align-center justify-start column>
           <intro/>
-          <interactive @notify="showNotification"/>
+          <interactive/>
         </v-layout>
       </v-container>
       <Footer/>
@@ -31,13 +31,13 @@
 import Intro from "./components/Intro.vue";
 import Interactive from "./components/Interactive.vue";
 import Footer from "./components/Footer.vue";
+import { mapState } from 'vuex';
 
 export default {
   name: "app",
   data() {
     return {
-      openSnackbar: false,
-      message: ""
+      openSnackbar: false
     }
   },
   components: {
@@ -45,12 +45,13 @@ export default {
     Interactive,
     Footer
   },
-  methods: {
-    showNotification(message) {
-      this.message = message
-      this.openSnackbar = true
-    }
-  }
+  mounted() {
+    this.$store.watch(
+      (state, getters) => state.errorMessage,
+      (newValue, oldValue) => this.openSnackbar = true
+    )
+  },
+  computed: mapState({ message: "errorMessage" })
 };
 </script>
 

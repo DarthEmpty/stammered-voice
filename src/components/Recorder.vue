@@ -43,6 +43,7 @@
 
 <script>
 import { RecordRTCPromisesHandler } from "recordrtc";
+import { mapActions } from 'vuex';
 
 export default {
   name: "Recorder",
@@ -61,9 +62,7 @@ export default {
       let config = { type: "audio" }
       this.recorder = new RecordRTCPromisesHandler(stream, config)
     })
-    .catch(err => {
-      this.$emit("update:micError", err)
-    })
+    .catch(err => this.report(err))
   },
   computed: {
     showAudio() {
@@ -82,6 +81,8 @@ export default {
     }
   },
   methods: {
+    ...mapActions([ "report" ]),
+
     startRecording() {
       this.recorder.startRecording();
     },

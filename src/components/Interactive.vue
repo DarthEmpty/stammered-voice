@@ -52,15 +52,12 @@ export default {
     ...mapGetters(["participants", "recordings", "phrases"])
   },
   methods: {
-    ...mapActions(["authenticateUser", "logUserIn", "logUserOut"]),
-
-    report(error) {
-      if (error.type === "FeathersError" && error.name !== "Timeout") {
-        error.message = error.errors.map(subError => subError.message).join("\n")
-      }
-
-      this.$emit("notify", error.message)
-    },
+    ...mapActions([
+      "authenticateUser",
+      "logUserIn",
+      "logUserOut",
+      "report"
+    ]),
 
     async getRandomPhrases() {
       try {

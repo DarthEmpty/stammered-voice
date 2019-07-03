@@ -10,7 +10,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     client: null,
-    user: null
+    user: null,
+    errorMessage: ""
   },
 
   getters: {
@@ -35,6 +36,10 @@ export default new Vuex.Store({
 
     setUser(state, user) {
       state.user = user
+    },
+
+    setErrorMessage(state, message) {
+      state.errorMessage = message
     }
   },
 
@@ -60,6 +65,14 @@ export default new Vuex.Store({
     logUserOut({ commit, state }) {
       state.client.logout()
       commit("setUser", null)
-    }
+    },
+
+    report({ commit }, error) {
+      if (error.type === "FeathersError" && error.name !== "Timeout") {
+        error.message = error.errors.map(subError => subError.message).join("\n")
+      }
+
+      commit("setErrorMessage", "ERROR: " + error.message)
+    },
   }
 })
