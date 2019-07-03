@@ -17,8 +17,6 @@
         Log Out
       </v-btn>
     </v-flex>
-
-    <error-dialog v-if="error" :error="error"/>
   </div>
 </template>
 
@@ -29,13 +27,11 @@ import { mapState, mapGetters, mapActions } from "vuex"
 import Login from "./Login.vue"
 import Recorder from "./Recorder.vue"
 import CueCard from "./CueCard.vue"
-import ErrorDialog from "./ErrorDialog.vue"
 
 export default {
   name: "Interactive",
   data() {
     return {
-      error: null,
       blob: "",
       phraseList: []
     }
@@ -43,8 +39,7 @@ export default {
   components: {
     Login,
     Recorder,
-    CueCard,
-    ErrorDialog
+    CueCard
   },
   computed: {
     ...mapState(["client", "user"]),
@@ -54,6 +49,10 @@ export default {
     ...mapActions(["authenticateUser", "logUserIn", "logUserOut"]),
 
     report(error) {
+      if (error.type === "FeathersError" && error.name !== "Timeout") {
+        error.message = error.errors.map(subError => subError.message).join("\n")
+      }
+
       this.$emit("notify", error.message)
     },
 
@@ -85,7 +84,7 @@ export default {
         this.phraseList = chosenPhrases
 
       } catch (error) {
-        this.error = error
+        this.report(error)
       }
     },
 
@@ -114,7 +113,7 @@ export default {
         this.login(username, password)
 
       } catch (error) {
-        this.error = error
+        this.report(error)
       }
     },
 
@@ -129,7 +128,7 @@ export default {
         this.blob = ""
 
       } catch (error) {
-        this.error = error
+        this.report(error)
       }
     }
   }
