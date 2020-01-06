@@ -16,7 +16,6 @@
               <v-flex>
                 <v-btn
                   fab depressed
-                  color="primary"
                   :loading="loading"
                   :disabled="loading"
                   @click="toggleRecording"

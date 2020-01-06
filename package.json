@@ -16,6 +16,7 @@
     "jszip": "^3.2.1",
     "material-design-icons-iconfont": "^4.0.5",
     "recordrtc": "^5.5.4",
+    "serialize-javascript": "^2.1.2",
     "socket.io-client": "^2.2.0",
     "vee-validate": "^2.1.7",
     "vue": "^2.6.6",
