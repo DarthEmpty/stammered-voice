@@ -3,7 +3,7 @@
     <v-app>
       <v-container id="main-container">
         <v-layout align-center justify-start column>
-          <intro/>
+          <!-- <intro/> -->
           <interactive/>
         </v-layout>
       </v-container>

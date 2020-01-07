@@ -8,13 +8,18 @@
     />
 
     <v-flex v-if="phraseList.length > 0">
-      <v-layout justify-center fill-height row wrap>
-        <recorder :blob.sync="blob" :defaultState="!blob" />
+      <v-layout align-center fill-height column>
         <cue-card
           :possibleTexts="phraseList"
           :nextDisabled="!blob"
+          :cardWidth="cardWidth"
           @update:text="store"
           @request-texts="getRandomPhrases"
+        />
+        <recorder
+          :blob.sync="blob"
+          :defaultState="!blob"
+          :cardWidth="cardWidth"
         />
       </v-layout>
 
@@ -49,7 +54,11 @@ export default {
   },
   computed: {
     ...mapState(["client", "user"]),
-    ...mapGetters(["participants", "recordings", "phrases"])
+    ...mapGetters(["participants", "recordings", "phrases"]),
+
+    cardWidth() {
+      return this.$vuetify.breakpoint.xsOnly ? "" : "430.88"
+    }
   },
   methods: {
     ...mapActions([
@@ -140,3 +149,6 @@ export default {
   }
 }
 </script>
+
+
+

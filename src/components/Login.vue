@@ -2,7 +2,7 @@
   <div id="login">
     <v-flex>
       <v-sheet color="grey lighten-3" class="pa-4">
-        <h2 class="headline my-4"> {{ signUp ? "Sign Up" : "Log In" }} </h2>
+        <h2 class="headline my-4">{{ signUp ? "Sign Up" : "Log In" }}</h2>
 
         <login-form
           :disabled="disabled"

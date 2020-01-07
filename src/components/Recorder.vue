@@ -1,39 +1,23 @@
 <template>
   <div class="recorder">
     <v-flex>
-      <v-sheet class="pa-4" color="grey lighten-2" height="350">
-        <v-layout column fill-height justify-space-between>
-          <v-flex>
-            <h5 class="headline">{{ heading }}</h5>
-          </v-flex>
-
-          <v-flex class="ma-4">
-            <v-icon>fas fa-microphone-alt fa-10x</v-icon>
-          </v-flex>
-
-          <v-flex class="ma-2">
-            <v-layout align-center justify-space-between wrap>
-              <v-flex>
-                <v-btn
-                  fab depressed
-                  :loading="loading"
-                  :disabled="loading"
-                  @click="toggleRecording"
-                >
-                  <v-icon color="red">fas fa-{{ iconState }}</v-icon>
-                </v-btn>
-              </v-flex>
-            
-              <v-flex v-if="showAudio">
-                <audio
-                  id="player" ref="player"
-                  controls
-                  :src="blobURL"
-                />
-              </v-flex>
-            </v-layout>
-          </v-flex>
-        </v-layout>
+      <v-sheet class="pa-4" color="grey lighten-2" :width="cardWidth">
+        <v-btn
+          fab depressed
+          :loading="loading"
+          :disabled="loading"
+          @click="toggleRecording"
+        >
+          <v-icon color="red">fas fa-{{ iconState }}</v-icon>
+        </v-btn>
+    
+        <div v-if="showAudio">
+          <audio
+            id="player" ref="player"
+            controls
+            :src="blobURL"
+          />
+        </div>
       </v-sheet>
     </v-flex>
   </div>
@@ -54,7 +38,7 @@ export default {
       blobURL: ""
     };
   },
-  props: [ "defaultState" ],
+  props: [ "defaultState", "cardWidth" ],
   async mounted() {
     navigator.mediaDevices.getUserMedia({ audio: true })
     .then(stream => {
@@ -120,3 +104,10 @@ export default {
   }
 };
 </script>
+
+
+<style>
+  #recorder {
+    width: 100%
+  }
+</style>
