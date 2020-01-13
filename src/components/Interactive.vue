@@ -13,7 +13,7 @@
           :possibleTexts="phraseList"
           :nextDisabled="!blob"
           :cardWidth="cardWidth"
-          @update:text="store"
+          @submit="store"
           @request-texts="getRandomPhrases"
         />
         <recorder
@@ -132,12 +132,16 @@ export default {
       }
     },
 
-    async store(text) {
+    async store(text, stammered) {
+      // eslint-disable-next-line
+      debugger
+
       try {
         this.recordings.create({
           participantId: this.user.id,
           textId: text.id,
-          sound: this.blob
+          sound: this.blob,
+          stammered: stammered
         })
 
         this.blob = ""

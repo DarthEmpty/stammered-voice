@@ -13,12 +13,20 @@
           <v-flex grow class="my-3 px-3">
             <h4 class="display-1">{{ possibleTexts[textIndex].phrase }}</h4>
           </v-flex>
-              
-          <v-flex shrink>
-            <v-btn large flat icon :disabled="nextDisabled" @click="nextText">
-              <v-icon>fas fa-{{ nextIcon }}</v-icon>
-            </v-btn>
-          </v-flex>
+
+          <v-layout row>  
+            <v-flex>
+              <v-btn medium flat :disabled="nextDisabled" @click="nextText(true)">
+                I stammered
+              </v-btn>
+            </v-flex>
+
+            <v-flex>
+              <v-btn medium flat :disabled="nextDisabled" @click="nextText(false)">
+                I did not stammer
+              </v-btn>              
+            </v-flex>
+          </v-layout>
 
         </v-layout>
       </v-sheet>
@@ -40,8 +48,10 @@ export default {
     }
   },
   methods: {
-    nextText() {
-      this.$emit("update:text", this.possibleTexts[this.textIndex])
+    nextText(stammered) {
+      // "stammered" represents whether the user stammered or not
+
+      this.$emit("submit", this.possibleTexts[this.textIndex], stammered)
       this.textIndex = (this.textIndex + 1) % this.possibleTexts.length
       
       if (this.textIndex === 0) {
