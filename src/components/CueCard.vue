@@ -1,5 +1,5 @@
 <template>
-  <div class="cue-card">
+  <div id="cue-card">
     <v-flex>
       <v-sheet color="green" class="pa-4" height="350" :width="cardWidth">
         <v-layout column fill-height justify-space-between>

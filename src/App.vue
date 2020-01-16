@@ -1,12 +1,17 @@
 <template>
   <div id="app">
     <v-app>
-      <v-container id="main-container">
-        <v-layout align-center justify-start column>
-          <!-- <intro/> -->
-          <interactive/>
-        </v-layout>
-      </v-container>
+      <nav-bar/>
+
+      <v-content>
+        <v-container id="main-container">
+          <v-layout align-center justify-start column>
+            <!-- <intro/> -->
+            <interactive/>
+          </v-layout>
+        </v-container>
+      </v-content>
+      
       <Footer/>
 
       <v-snackbar
@@ -28,6 +33,7 @@
 
 
 <script>
+import NavBar from "./components/NavBar.vue";
 import Intro from "./components/Intro.vue";
 import Interactive from "./components/Interactive.vue";
 import Footer from "./components/Footer.vue";
@@ -41,6 +47,7 @@ export default {
     }
   },
   components: {
+    NavBar,
     Intro,
     Interactive,
     Footer
@@ -62,9 +69,6 @@ html, body, #app { height: 100%; }
 #app {
   font-family: "Roboto", Helvetica, Arial, sans-serif;
   text-align: center;
-  color: #2c3e50;
-  display: flex;
-  flex-direction: column;
 }
 
 #main-container {
