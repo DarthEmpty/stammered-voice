@@ -1,11 +1,18 @@
 <template>
     <v-toolbar id="nav-bar" app dense dark flat color="grey">
-      <v-toolbar-title>Stammered Voice</v-toolbar-title>
+      <router-link to="/" id="home-btn">
+        <v-toolbar-title>Stammered Voice</v-toolbar-title>
+      </router-link>
       
       <v-spacer />
 
-      <v-btn flat color="white">Intro</v-btn>
-      <v-btn flat color="white">Guide</v-btn>
+      <router-link to="/intro">
+        <v-btn flat>Intro</v-btn>
+      </router-link>
+
+      <router-link to="/instructions">
+        <v-btn flat>Guide</v-btn>
+      </router-link>
     </v-toolbar>
 </template>
 
@@ -16,5 +23,8 @@ export default {
 </script>
 
 <style>
-
+#home-btn {
+  color: white;
+  text-decoration-line: none;
+}
 </style>

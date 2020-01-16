@@ -6,8 +6,7 @@
       <v-content>
         <v-container id="main-container">
           <v-layout align-center justify-start column>
-            <!-- <intro/> -->
-            <interactive/>
+            <router-view/>
           </v-layout>
         </v-container>
       </v-content>
@@ -34,8 +33,6 @@
 
 <script>
 import NavBar from "./components/NavBar.vue";
-import Intro from "./components/Intro.vue";
-import Interactive from "./components/Interactive.vue";
 import Footer from "./components/Footer.vue";
 import { mapState } from 'vuex';
 
@@ -48,8 +45,6 @@ export default {
   },
   components: {
     NavBar,
-    Intro,
-    Interactive,
     Footer
   },
   mounted() {
