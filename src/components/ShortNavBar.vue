@@ -24,11 +24,10 @@
 <script>
 export default {
   name: "ShortNavBar",
-  data: () => {
-    return {
-      open: false
-    }
-  }
+  data() {
+    return { open: false }
+  },
+  props: [ "items" ]
 }
 </script>
 

@@ -20,7 +20,8 @@
 
 <script>
 export default {
-  name: "LongNavBar"
+  name: "LongNavBar",
+  props: [ "items" ]
 }
 </script>
 
