@@ -1,30 +1,28 @@
 <template>
-    <v-toolbar id="nav-bar" app dense dark flat color="grey">
-      <router-link to="/" id="home-btn">
-        <v-toolbar-title>Stammered Voice</v-toolbar-title>
-      </router-link>
-      
-      <v-spacer />
+  <div id="nav-bar">
+    <long-nav-bar
+      v-if="$vuetify.breakpoint.smAndUp"
+    />
 
-      <router-link to="/intro">
-        <v-btn flat>Intro</v-btn>
-      </router-link>
-
-      <router-link to="/instructions">
-        <v-btn flat>Guide</v-btn>
-      </router-link>
-    </v-toolbar>
+    <short-nav-bar
+      v-if="$vuetify.breakpoint.xsOnly"
+    />
+  </div>
 </template>
 
 <script>
+import LongNavBar from "./LongNavBar"
+import ShortNavBar from "./ShortNavBar"
+
 export default {
-  name: "NavBar"
+  name: "NavBar",
+  components: {
+    LongNavBar,
+    ShortNavBar
+  }
 }
 </script>
 
 <style>
-#home-btn {
-  color: white;
-  text-decoration-line: none;
-}
+
 </style>

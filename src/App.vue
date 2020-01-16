@@ -32,8 +32,8 @@
 
 
 <script>
-import NavBar from "./components/NavBar.vue";
-import Footer from "./components/Footer.vue";
+import NavBar from "./components/NavBar";
+import Footer from "./components/Footer";
 import { mapState } from 'vuex';
 
 export default {
