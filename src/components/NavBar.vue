@@ -21,6 +21,7 @@ export default {
   data() {
     return {
       items: [
+        { name: "Home", to: "/" },
         { name: "Intro", to: "/intro" },
         { name: "Guide", to: "/instructions" }
       ]
@@ -32,7 +33,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>

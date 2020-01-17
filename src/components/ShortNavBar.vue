@@ -5,18 +5,30 @@
         <v-icon>fas fa-bars</v-icon>
       </v-btn>
 
-      <router-link to="/" id="home-btn">
-        <v-toolbar-title>
-          <strong>Stammered Voice</strong>
-        </v-toolbar-title>
-      </router-link>
+      <v-toolbar-title>
+        <strong>Stammered Voice</strong>
+      </v-toolbar-title>
     </v-toolbar>
 
     <v-navigation-drawer 
       app absolute temporary
       v-model="open"
     >
-      <!-- TODO: Add list of links using for loop -->
+      <v-list dense nav>
+        <v-list-item
+          v-for="item in items"
+          :key="item.name"
+          link
+        >
+          <router-link :to="item.to" class="menu-link">
+            <v-card flat tile class="px-4 py-3 menu-link-card">
+              <v-list-item-content class="headline">
+                  {{ item.name }}
+              </v-list-item-content>
+            </v-card>
+          </router-link>  
+        </v-list-item>
+      </v-list>
     </v-navigation-drawer>
   </div>
 </template>
@@ -32,5 +44,11 @@ export default {
 </script>
 
 <style>
+.menu-link {
+  text-decoration: none;
+}
 
+.menu-link-card {
+  text-align: left
+}
 </style>
