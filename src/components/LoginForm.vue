@@ -8,6 +8,7 @@
         label="Enter your username"
         v-validate="'required|alpha_dash'"
         :error-messages="errors.collect('username')"
+        @keyup.enter="submit"
         outline
         class="my-2"
       />
@@ -21,6 +22,7 @@
         :type="show ? 'text' : 'password'"
         :append-icon="show ? 'fas fa-eye' : 'fas fa-eye-slash'"
         @click:append="show = !show"
+        @keyup.enter="submit"
         outline
         class="my-2"
       />
