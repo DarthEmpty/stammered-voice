@@ -14,20 +14,19 @@
       app absolute temporary
       v-model="open"
     >
-      <v-list dense nav>
-        <v-list-item
+      <v-list>
+        <router-link
           v-for="item in items"
           :key="item.name"
-          link
+          :to="item.to"
+          class="menu-link"
         >
-          <router-link :to="item.to" class="menu-link">
-            <v-card flat tile class="px-4 py-3 menu-link-card">
-              <v-list-item-content class="headline">
-                  {{ item.name }}
-              </v-list-item-content>
-            </v-card>
-          </router-link>  
-        </v-list-item>
+          <v-list-tile class="px-4 py-3 menu-link-card">
+            <v-list-tile-content>
+                <v-list-tile-title class="title">{{ item.name }}</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </router-link>
       </v-list>
     </v-navigation-drawer>
   </div>

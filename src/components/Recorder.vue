@@ -7,6 +7,7 @@
           :loading="loading"
           :disabled="loading"
           @click="toggleRecording"
+          class="py-3"
         >
           <v-icon color="red">fas fa-{{ iconState }}</v-icon>
         </v-btn>
