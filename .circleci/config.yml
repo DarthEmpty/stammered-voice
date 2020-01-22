@@ -1,0 +1,81 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node:10.15.3
+    
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - run:
+          name: Install Dependencies
+          command: yarn install
+      - run:
+          name: Build Site
+          command: yarn build
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - dist
+  
+  combine:
+    docker:
+      - image: circleci/node:10.15.3
+
+    working_directory: ~/repo
+
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Avoid hosts unknown for github
+          command: >
+            mkdir ~/.ssh/
+            && echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+      - run:
+          name: Clone Backend
+          command: git clone "git@github.com:DarthEmpty/stammered-voice-server.git"
+      - run:
+          name: Install Dependencies
+          command: cd stammered-voice-server && yarn install
+      - run:
+          name: Combine Ends
+          command: mv dist/* stammered-voice-server/public
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - stammered-voice-server/
+  
+  deploy:
+    machine:
+      image: ubuntu-1604:201903-01
+
+    working_directory: ~/repo
+
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - add_ssh_keys:
+          fingerprints:
+            - "4a:92:75:e9:3c:44:56:d8:1a:26:c0:90:e3:16:04:5a"
+      - run: 
+          name: Zip Project
+          command: zip -r stammered-voice-server stammered-voice-server
+      - run:
+          name: Deploy to Server
+          command: scp "stammered-voice-server.zip" "zcvb200@linux.cs.rhul.ac.uk:"
+
+workflows:
+  version: 2
+  build_combine_deploy:
+    jobs:
+      - build
+      - combine:
+          requires:
+            - build
+      - deploy:
+          context: rhul-server-context
+          requires:
+            - combine
