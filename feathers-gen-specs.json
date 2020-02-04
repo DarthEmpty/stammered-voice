@@ -1,0 +1,15 @@
+{
+  "app": {
+    "environmentsAllowingSeedData": "",
+    "seedData": false
+  },
+  "options": {
+    "ver": "1.0.0",
+    "inspectConflicts": false,
+    "semicolons": true,
+    "freeze": [],
+    "ts": false
+  },
+  "services": {},
+  "hooks": {}
+}
