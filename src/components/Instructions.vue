@@ -1,12 +1,10 @@
 <template>
   <div id="instructions" class="my-5">
-    <v-flex>
-      <h2 class="headline mt-5 mb-3">
-        Instructions
-      </h2>
+    <v-flex class="my-5">
+      <h2 class="headline">Instructions</h2>
     </v-flex>
 
-    <v-flex>
+    <v-flex class="my-5 px-5">
       <p class="body-1">
         Below, you should be able to see an area where you can log in or sign up to participate. <strong>The only reason you are required to do this is so that, in the case where you wish to see or delete your data, we can easily identify which recordings are yours.</strong> 
       </p>
