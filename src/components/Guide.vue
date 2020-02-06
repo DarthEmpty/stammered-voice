@@ -6,7 +6,7 @@
 
     <v-flex class="my-5 px-5">
       <p class="body-1">
-        Below, you should be able to see an area where you can log in or sign up to participate. <strong>The only reason you are required to do this is so that, in the case where you wish to see or delete your data, we can easily identify which recordings are yours.</strong> 
+        On the home page, you should be able to see an area where you can log in or sign up to contribute your voice. <strong>The only reason you are required to do this is so that, in the case where you wish to see or delete your data, we can easily identify which recordings are yours.</strong> 
       </p>
 
       <p class="body-1">
@@ -18,11 +18,11 @@
       </p>
 
       <p class="body-1">
-        If you are happy with the recording, you can submit it by clicking <strong>next ( <v-icon color="black">fas fa-arrow-right fa-sm</v-icon> )</strong> on the green panel. If not, however, you can record yourself again by clicking <strong>record ( <v-icon color="red">fas fa-circle fa-sm</v-icon> )</strong> on the grey panel.
+        If you are happy with the recording, you can submit it by clicking either the <strong>I STAMMERED</strong> or the <strong>I DID NOT STAMMER</strong> button on the green panel.  If not, however, you can record yourself again by clicking <strong>record ( <v-icon color="red">fas fa-circle fa-sm</v-icon> )</strong> on the grey panel.
       </p>
 
       <p class="body-1">
-        Once you've submitted a recording, a different phrase will be presented to you on the green panel. You can record yourself saying however many phrases you'd like but I'd be very happy if you only went through five phrases. If you wish to do more after the fifth phrase, press <strong>restart ( <v-icon color="black">fas fa-undo fa-sm</v-icon> )</strong> to submit your fifth recording and to fetch five more random phrases.
+        Once you've submitted a recording, a different phrase will be presented to you on the green panel. You can record yourself saying however many phrases you'd like but it would be very helpful if you only went through five phrases. The counter at the top of the green panel is there to help you keep count of how many of your five recordings you've done.
       </p>
     </v-flex>
   </div>
