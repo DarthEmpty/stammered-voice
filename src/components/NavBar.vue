@@ -22,8 +22,8 @@ export default {
     return {
       items: [
         { name: "Home", to: "/" },
-        { name: "Intro", to: "/intro" },
-        { name: "Guide", to: "/instructions" }
+        { name: "About", to: "/about" },
+        { name: "Guide", to: "/guide" }
       ]
     }
   },

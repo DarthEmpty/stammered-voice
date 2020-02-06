@@ -1,7 +1,7 @@
 <template>
-  <div id="instructions" class="my-5">
+  <div id="guide" class="my-5">
     <v-flex class="my-5">
-      <h2 class="headline">Instructions</h2>
+      <h2 class="headline">Guide</h2>
     </v-flex>
 
     <v-flex class="my-5 px-5">
@@ -30,6 +30,6 @@
 
 <script>
 export default {
-  name: "Instructions"
+  name: "Guide"
 }
 </script>

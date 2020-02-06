@@ -1,5 +1,5 @@
 <template>
-  <div id="intro" class="my-5">
+  <div id="about" class="my-5">
     <v-flex class="my-5">
       <h1 class="headline">About</h1>
     </v-flex>
@@ -32,6 +32,6 @@
 
 <script>
 export default {
-  name: "Intro"
+  name: "About"
 }
 </script>
