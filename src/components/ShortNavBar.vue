@@ -1,6 +1,6 @@
 <template>
   <div id="short-nav-bar">
-    <v-toolbar app dense dark flat color="grey">
+    <v-toolbar app dense dark flat color="secondary">
       <v-btn icon @click="open = !open">
         <v-icon>fas fa-bars</v-icon>
       </v-btn>

@@ -30,7 +30,7 @@
         large depressed
         :disabled="disabled || fieldsUnfilled"
         :loading="disabled"
-        color="green" 
+        color="primary" 
         @click="submit"
       >
         Submit

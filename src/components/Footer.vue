@@ -1,7 +1,7 @@
 <template>
   <div id="footer">
     <v-footer height="auto">
-      <v-card flat tile color="grey" class="flex">
+      <v-card flat tile color="secondary" class="flex">
         <v-card-text class="subheading">
           <strong>Thank you for contributing!</strong>
         </v-card-text>

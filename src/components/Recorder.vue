@@ -1,7 +1,7 @@
 <template>
   <div class="recorder">
     <v-flex>
-      <v-sheet class="pa-4" color="grey lighten-2" :width="cardWidth">
+      <v-sheet class="pa-4" color="accent" :width="cardWidth">
         <v-btn
           fab depressed
           :loading="loading"

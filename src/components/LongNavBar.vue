@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar id="long-nav-bar" app dense dark flat color="grey">
+  <v-toolbar id="long-nav-bar" app dense dark flat color="secondary">
     <v-toolbar-title>
       <strong>Stammered Voice</strong>
     </v-toolbar-title>
@@ -22,10 +22,3 @@ export default {
   props: [ "items" ]
 }
 </script>
-
-<style>
-#home-btn {
-  color: white;
-  text-decoration-line: none;
-}
-</style>
