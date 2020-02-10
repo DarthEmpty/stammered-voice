@@ -1,16 +1,15 @@
 <template>
   <div id="interactive">
     <login
-      v-if="phraseList.length === 0"
+      v-if="!user"
       :disabled.sync="loginDisabled"
       @sign-up="addCredentials"
       @log-in="login"
     />
 
-    <v-flex v-if="phraseList.length > 0">
+    <v-flex v-else>
       <v-layout align-center fill-height column>
         <cue-card
-          :possibleTexts="phraseList"
           :nextDisabled="!blob"
           :cardWidth="cardWidth"
           @submit="store"
@@ -43,7 +42,6 @@ export default {
   data() {
     return {
       blob: "",
-      phraseList: [],
       loginDisabled: false
     }
   },
@@ -53,7 +51,7 @@ export default {
     CueCard
   },
   computed: {
-    ...mapState(["client", "user"]),
+    ...mapState(["client", "user", "phraseList"]),
     ...mapGetters(["participants", "recordings", "phrases"]),
 
     cardWidth() {
@@ -65,6 +63,8 @@ export default {
       "authenticateUser",
       "logUserIn",
       "logUserOut",
+      "changePhrases",
+      "resetPhrases",
       "report"
     ]),
 
@@ -93,7 +93,7 @@ export default {
         )
 
         // Put phrases in the phrase list
-        this.phraseList = chosenPhrases
+        this.changePhrases(chosenPhrases)
 
       } catch (error) {
         this.report(error)
@@ -117,8 +117,8 @@ export default {
     },
 
     logout() {
+      this.resetPhrases()
       this.logUserOut()
-      this.phraseList = []
     },
 
     async addCredentials(username, password) {
@@ -133,9 +133,6 @@ export default {
     },
 
     async store(text, stammered) {
-      // eslint-disable-next-line
-      debugger
-
       try {
         this.recordings.create({
           participantId: this.user.id,

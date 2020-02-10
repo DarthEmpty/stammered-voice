@@ -11,6 +11,7 @@ export default new Vuex.Store({
   state: {
     client: null,
     user: null,
+    phraseList: [],
     errorMessage: ""
   },
 
@@ -36,6 +37,10 @@ export default new Vuex.Store({
 
     setUser(state, user) {
       state.user = user
+    },
+
+    setPhraseList(state, list) {
+      state.phraseList = list
     },
 
     setErrorMessage(state, message) {
@@ -65,6 +70,14 @@ export default new Vuex.Store({
     logUserOut({ commit, state }) {
       state.client.logout()
       commit("setUser", null)
+    },
+
+    changePhrases({ commit }, list) {
+      commit("setPhraseList", list)
+    },
+
+    resetPhrases({ commit }) {
+      commit("setPhraseList", [])
     },
 
     report({ commit }, error) {

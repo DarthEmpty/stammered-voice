@@ -6,12 +6,12 @@
 
           <v-flex>
             <p class="subheading">
-              {{ (textIndex + 1).toString() + "/" + (possibleTexts.length).toString() }}
+              {{ (textIndex + 1).toString() + "/" + (phraseList.length).toString() }}
             </p>
           </v-flex>
 
           <v-flex grow class="my-3 px-3">
-            <h4 class="display-1">{{ possibleTexts[textIndex].phrase }}</h4>
+            <h4 class="display-1">{{ phraseList[textIndex].phrase }}</h4>
           </v-flex>
 
           <v-layout row>  
@@ -36,23 +36,27 @@
 
 
 <script>
+import { mapState } from "vuex"
+
 export default {
   name: "CueCard",
   data() {
     return { textIndex: 0 }
   },
-  props: [ "possibleTexts", "nextDisabled", "cardWidth" ],
+  props: [ "nextDisabled", "cardWidth" ],
   computed: {
+    ...mapState(["phraseList"]),
+    
     nextIcon() {
-      return this.textIndex === this.possibleTexts.length - 1 ? "undo" : "arrow-right" 
+      return this.textIndex === this.phraseList.length - 1 ? "undo" : "arrow-right" 
     }
   },
   methods: {
     nextText(stammered) {
       // "stammered" represents whether the user stammered or not
 
-      this.$emit("submit", this.possibleTexts[this.textIndex], stammered)
-      this.textIndex = (this.textIndex + 1) % this.possibleTexts.length
+      this.$emit("submit", this.phraseList[this.textIndex], stammered)
+      this.textIndex = (this.textIndex + 1) % this.phraseList.length
       
       if (this.textIndex === 0) {
         this.$emit("request-texts")
