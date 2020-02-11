@@ -1,8 +1,10 @@
 <template>
   <div id="user-info-card">
     <v-sheet color="accent" class="pb-3">
-      <h1 class="headline py-5">Logged in as {{ user.username }}</h1>
+      <h1 class="headline pt-5">Logged in as {{ user.username }}</h1>
       
+      <p class="subheading py-4">Recordings donated: {{ recordingCount }}</p>
+
       <v-btn
         flat 
         color="primary" 
@@ -36,12 +38,13 @@
 <script>
 import SeeDataDialog from "../components/SeeDataDialog"
 import DeleteDataDialog from "../components/DeleteDataDialog"
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: "UserInfoCard",
   data() {
     return {
+      recordingCount: 0,
       seeDataOpen: false,
       deleteDataOpen: false
     }
@@ -51,7 +54,18 @@ export default {
     DeleteDataDialog
   },
   computed: {
-    ...mapState(["user"])
+    ...mapState(["user"]),
+    ...mapGetters(["recordings"]),
   },
+  async mounted() {
+    let res = await this.recordings.find({
+      query: {
+        participantId: this.user.id,
+        $limit: 0
+      }
+    })
+
+    this.recordingCount = res.total
+  }
 }
 </script>
