@@ -3,7 +3,7 @@
     <v-sheet color="accent" class="pb-3">
       <h1 class="headline pt-5">Logged in as {{ user.username }}</h1>
       
-      <p class="subheading py-4">Recordings donated: {{ recordingCount }}</p>
+      <p class="subheading py-4">Recordings donated: {{ recordingTotal }}</p>
 
       <v-btn
         flat 
@@ -29,7 +29,7 @@
 
     <delete-data-dialog
       :open="deleteDataOpen"
-      @close="deleteDataOpen = false"
+      @close="cleanAfterDelete"
     />
   </div>
 </template>
@@ -44,7 +44,7 @@ export default {
   name: "UserInfoCard",
   data() {
     return {
-      recordingCount: 0,
+      recordingTotal: 0,
       seeDataOpen: false,
       deleteDataOpen: false
     }
@@ -57,15 +57,25 @@ export default {
     ...mapState(["user"]),
     ...mapGetters(["recordings"]),
   },
-  async mounted() {
-    let res = await this.recordings.find({
-      query: {
-        participantId: this.user.id,
-        $limit: 0
-      }
-    })
+  methods: {
+    async countRecordings() {
+      let res = await this.recordings.find({
+        query: {
+          participantId: this.user.id,
+          $limit: 0
+        }
+      })
 
-    this.recordingCount = res.total
+      this.recordingTotal = res.total
+    },
+
+    async cleanAfterDelete() {
+      this.deleteDataOpen = false
+      await this.countRecordings()
+    }
+  },
+  async mounted() {
+    this.countRecordings()
   }
 }
 </script>
