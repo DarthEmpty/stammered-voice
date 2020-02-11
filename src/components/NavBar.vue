@@ -23,7 +23,8 @@ export default {
       items: [
         { name: "Home", to: "/" },
         { name: "About", to: "/about" },
-        { name: "Guide", to: "/guide" }
+        { name: "Guide", to: "/guide" },
+        { name: "Account", to: "/account" }
       ]
     }
   },

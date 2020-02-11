@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import { About, Guide, Interactive } from "./pages"
+import { About, Account, Guide, Interactive } from "./pages"
 
 Vue.use(VueRouter)
 
@@ -10,6 +10,7 @@ export default new VueRouter({
   routes: [
     { path: "/", component: Interactive },
     { path: "/about", component: About },
-    { path: "/guide", component: Guide }
+    { path: "/guide", component: Guide },
+    { path: "/account", component: Account }
   ]
 })
