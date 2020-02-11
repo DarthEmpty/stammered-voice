@@ -33,9 +33,9 @@
 <script>
 import { mapState, mapGetters, mapActions } from "vuex"
 
-import Login from "./Login.vue"
-import Recorder from "./Recorder.vue"
-import CueCard from "./CueCard.vue"
+import Login from "../components/Login.vue"
+import Recorder from "../components/Recorder.vue"
+import CueCard from "../components/CueCard.vue"
 
 export default {
   name: "Interactive",

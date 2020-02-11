@@ -1,8 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Interactive from "./components/Interactive"
-import About from "./components/About"
-import Guide from "./components/Guide"
+
+import { About, Guide, Interactive } from "./pages"
 
 Vue.use(VueRouter)
 
