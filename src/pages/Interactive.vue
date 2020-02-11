@@ -1,5 +1,7 @@
 <template>
   <div id="interactive">
+    <v-layout align-center fill-height column>
+
     <login
       v-if="!user"
       :disabled.sync="loginDisabled"
@@ -7,25 +9,24 @@
       @log-in="login"
     />
 
-    <v-flex v-else>
-      <v-layout align-center fill-height column>
-        <cue-card
-          :nextDisabled="!blob"
-          :cardWidth="cardWidth"
-          @submit="store"
-          @request-texts="getRandomPhrases"
-        />
-        <recorder
-          :blob.sync="blob"
-          :defaultState="!blob"
-          :cardWidth="cardWidth"
-        />
-      </v-layout>
-
+    <div v-else>
+      <cue-card
+        :nextDisabled="!blob"
+        :cardWidth="cardWidth"
+        @submit="store"
+        @request-texts="getRandomPhrases"
+      />
+      <recorder
+        :blob.sync="blob"
+        :defaultState="!blob"
+        :cardWidth="cardWidth"
+      />
       <v-btn large flat @click="logout">
         Log Out
       </v-btn>
-    </v-flex>
+    </div>
+    </v-layout>
+
   </div>
 </template>
 

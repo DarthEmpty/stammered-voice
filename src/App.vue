@@ -5,8 +5,10 @@
 
       <v-content>
         <v-container id="main-container">
-          <v-layout align-center justify-start column>
-            <router-view/>
+          <v-layout justify-center>
+            <v-flex sm6>
+              <router-view/>
+            </v-flex>
           </v-layout>
         </v-container>
       </v-content>
