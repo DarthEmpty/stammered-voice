@@ -21,9 +21,6 @@
         :defaultState="!blob"
         :cardWidth="cardWidth"
       />
-      <v-btn large flat @click="logout">
-        Log Out
-      </v-btn>
     </div>
     </v-layout>
 
@@ -63,9 +60,7 @@ export default {
     ...mapActions([
       "authenticateUser",
       "logUserIn",
-      "logUserOut",
       "changePhrases",
-      "resetPhrases",
       "report"
     ]),
 
@@ -115,11 +110,6 @@ export default {
       }
       
       this.loginDisabled = false
-    },
-
-    logout() {
-      this.resetPhrases()
-      this.logUserOut()
     },
 
     async addCredentials(username, password) {
