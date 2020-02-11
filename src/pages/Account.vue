@@ -10,25 +10,50 @@
       <v-sheet color="accent" class="pb-3">
         <h1 class="headline py-5">Logged in as {{ user.username }}</h1>
         
-        <v-btn flat color="primary">See Data</v-btn>
+        <v-btn
+          flat 
+          color="primary" 
+          @click.stop="seeDataOpen = true"
+        >
+          See Data
+        </v-btn>
 
-        <v-btn flat color="primary">Delete Data</v-btn>
+        <v-btn
+          flat 
+          color="primary"
+          @click.stop="deleteDataOpen = true"
+        >
+          Delete Data
+        </v-btn>
       </v-sheet>
 
       <router-link :to="'/'">
         <v-btn
           depressed block
-          @click="logout"
           color="primary"
+          @click="logout"
         >
           Log Out
         </v-btn>
       </router-link>
+
+      <see-data-dialog
+        :open="seeDataOpen"
+        @close="seeDataOpen = false"
+      />
+
+      <delete-data-dialog
+        :open="deleteDataOpen"
+        @close="deleteDataOpen = false"
+      />
     </div>
   </div>
 </template>
 
+
 <script>
+import SeeDataDialog from "../components/SeeDataDialog"
+import DeleteDataDialog from "../components/DeleteDataDialog"
 import { mapState, mapActions } from 'vuex'
 
 export default {
@@ -38,6 +63,10 @@ export default {
       seeDataOpen: false,
       deleteDataOpen: false
     }
+  },
+  components: {
+    SeeDataDialog,
+    DeleteDataDialog
   },
   computed: {
     ...mapState(["user"])

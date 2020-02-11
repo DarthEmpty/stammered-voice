@@ -15,42 +15,13 @@
             <v-icon>{{ link.icon }}</v-icon>
           </v-btn>
         </v-card-text>
-        <v-card-text>
-          <v-btn
-            small depressed
-            color="red"
-            @click.stop="seeDataOpen = true"
-          >
-            See data
-          </v-btn>
-          <v-btn
-            small depressed
-            color="red"
-            @click.stop="deleteDataOpen = true"
-          >
-            Delete data
-          </v-btn>
-        </v-card-text>
       </v-card>
     </v-footer>
-
-    <see-data-dialog
-      :open="seeDataOpen"
-      @close="seeDataOpen = false"
-    />
-
-    <delete-data-dialog
-      :open="deleteDataOpen"
-      @close="deleteDataOpen = false"
-    />
   </div>
 </template>
 
 
 <script>
-import SeeDataDialog from "./SeeDataDialog"
-import DeleteDataDialog from "./DeleteDataDialog"
-
 export default {
   name: "Footer",
   data() {
@@ -59,14 +30,8 @@ export default {
         { icon: "fas fa-at", ref: "mailto: zcvb200@live.rhul.ac.uk" },
         { icon: "fab fa-twitter", ref: "https://twitter.com/NlpJoel" },
         { icon: "fab fa-github", ref: "https://github.com/DarthEmpty" }
-      ],
-      seeDataOpen: false,
-      deleteDataOpen: false,
+      ]
     };
-  },
-  components: {
-    SeeDataDialog,
-    DeleteDataDialog
   }
 };
 </script>
