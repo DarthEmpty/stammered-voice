@@ -96,9 +96,9 @@ export default {
       }
     },
 
-    async login(username, password) {
+    async login(email, password) {
       try {
-        let user = await this.authenticateUser({ username, password })
+        let user = await this.authenticateUser({ email, password })
 
         if (user) {
           this.logUserIn(user)
@@ -112,10 +112,10 @@ export default {
       this.loginDisabled = false
     },
 
-    async addCredentials(username, password) {
+    async addCredentials(email, password) {
       try {
-        await this.participants.create({ username, password })
-        this.login(username, password)
+        await this.participants.create({ email, password })
+        this.login(email, password)
 
       } catch (error) {
         this.report(error)

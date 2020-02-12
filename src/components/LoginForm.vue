@@ -2,12 +2,12 @@
   <div id="login-form">
     <form>
       <v-text-field
-        id="username"
-        name="username"
-        v-model="username"
-        label="Enter your username"
-        v-validate="'required|alpha_dash'"
-        :error-messages="errors.collect('username')"
+        id="email"
+        name="email"
+        v-model="email"
+        label="Enter your email"
+        v-validate="'required|email'"
+        :error-messages="errors.collect('email')"
         @keyup.enter="submit"
         outline
         class="my-2"
@@ -49,7 +49,7 @@ export default {
   name: "LoginForm",
   data() {
     return {
-      username: "",
+      email: "",
       password: "",
       show: false
     };
@@ -57,14 +57,14 @@ export default {
   props: [ "disabled" ],
   computed: {
     fieldsUnfilled() {
-      return this.username === "" || this.password === ""
+      return this.email === "" || this.password === ""
     }
   },
   methods: {
     async submit() {
       let result = await this.$validator.validate()
       if (result) {
-        this.$emit("submit", this.username, this.password)
+        this.$emit("submit", this.email, this.password)
         this.buttonsDisabled = true
       }
     }

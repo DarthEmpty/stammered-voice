@@ -34,7 +34,7 @@ export default {
   name: "SeeDataDialog",
   data() {
     return {
-      username: "",
+      email: "",
       password: "",
     }
   },
@@ -52,8 +52,8 @@ export default {
       this.$emit('close')
     },
 
-    async onSubmit(username, password) {
-      let user = await this.authenticateUser({ username, password })
+    async onSubmit(email, password) {
+      let user = await this.authenticateUser({ email, password })
 
       if (user) {
         // Retrieve files

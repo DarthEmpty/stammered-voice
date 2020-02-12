@@ -43,12 +43,12 @@ export default {
     }
   },
   methods: {
-    async decideMethod(username, password) {
+    async decideMethod(email, password) {
       if (this.signUp) {
-        this.$emit("sign-up", username, password)
+        this.$emit("sign-up", email, password)
       
       } else {
-        this.$emit("log-in", username, password)
+        this.$emit("log-in", email, password)
       }
       
       this.$emit("update:disabled", true)

@@ -56,7 +56,7 @@ export default new Vuex.Store({
     async authenticateUser({ state, getters }, credentials) {
       let response = await state.client.authenticate({
         strategy: "local",
-        username: credentials.username,
+        email: credentials.email,
         password: credentials.password
       })
       let payload = await state.client.passport.verifyJWT(response.accessToken)

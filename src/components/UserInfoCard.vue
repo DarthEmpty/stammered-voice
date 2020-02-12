@@ -1,7 +1,7 @@
 <template>
   <div id="user-info-card">
     <v-sheet color="accent" class="pb-3">
-      <h1 class="headline pt-5">Logged in as {{ user.username }}</h1>
+      <h1 class="headline pt-5">Logged in as {{ user.email }}</h1>
       
       <p class="subheading py-4">Recordings donated: {{ recordingTotal }}</p>
 
