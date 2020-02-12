@@ -51,8 +51,8 @@ export default {
   },
   mounted() {
     this.$store.watch(
-      (state, getters) => state.errorMessage,
-      (newValue, oldValue) => this.openSnackbar = true
+      (state) => state.errorMessage,
+      () => this.openSnackbar = true
     )
   },
   computed: mapState({ message: "errorMessage" })
