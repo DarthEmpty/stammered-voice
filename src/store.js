@@ -4,6 +4,7 @@ import feathers from "@feathersjs/feathers"
 import io from "socket.io-client"
 import socketio from "@feathersjs/socketio-client"
 import authentication from "@feathersjs/authentication-client"
+import AuthManagement from "feathers-authentication-management/lib/client"
 
 Vue.use(Vuex)
 
@@ -11,6 +12,7 @@ export default new Vuex.Store({
   state: {
     client: null,
     user: null,
+    authManagement: null,
     phraseList: [],
     errorMessage: ""
   },
@@ -33,6 +35,8 @@ export default new Vuex.Store({
       state.client.configure(authentication({
         storage: window.localStorage
       }));
+
+      state.authManagement = new AuthManagement(state.client)
     },
 
     setUser(state, user) {
