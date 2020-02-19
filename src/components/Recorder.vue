@@ -39,14 +39,16 @@ export default {
       blobURL: ""
     };
   },
-  props: [ "defaultState", "cardWidth" ],
+  props: ["defaultState", "cardWidth"],
   async mounted() {
-    navigator.mediaDevices.getUserMedia({ audio: true })
-    .then(stream => {
+    try {
+      let stream = await navigator.mediaDevices.getUserMedia({ audio: true })
       let config = { type: "audio" }
       this.recorder = new RecordRTCPromisesHandler(stream, config)
-    })
-    .catch(err => this.report(err))
+
+    } catch(err) {
+      this.report(err)
+    }
   },
   computed: {
     showAudio() {
@@ -65,7 +67,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions([ "report" ]),
+    ...mapActions(["report"]),
 
     startRecording() {
       this.recorder.startRecording();
