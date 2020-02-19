@@ -3,7 +3,9 @@
     <v-sheet color="accent" class="pb-3">
       <h1 class="headline pt-5">Logged in as {{ user.email }}</h1>
       
-      <p class="subheading py-4">Recordings donated: {{ recordingTotal }}</p>
+      <p class="subheading pt-4">Recordings donated: {{ recordingTotal }}</p>
+
+      <p class="subheading pb-4">{{ user.isVerified ? "Verified!" : "Look for an email from us to verify your account." }}</p>
 
       <v-btn
         flat 
@@ -55,7 +57,7 @@ export default {
   },
   computed: {
     ...mapState(["user"]),
-    ...mapGetters(["recordings"]),
+    ...mapGetters(["participants", "recordings"]),
   },
   methods: {
     async countRecordings() {
