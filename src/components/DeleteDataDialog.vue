@@ -30,12 +30,6 @@ import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: "DeleteDataDialog",
-  data() {
-    return {
-      email: "",
-      password: "",
-    }
-  },
   props: [ "open" ],
   components: {
     LoginForm

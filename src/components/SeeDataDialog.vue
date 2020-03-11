@@ -32,12 +32,6 @@ import { saveAs } from "file-saver"
 
 export default {
   name: "SeeDataDialog",
-  data() {
-    return {
-      email: "",
-      password: "",
-    }
-  },
   props: [ "open" ],
   components: {
     LoginForm

@@ -19,23 +19,42 @@
         </v-btn>
       </v-sheet>
     </v-flex>
+
+    <v-flex>
+      <v-btn
+        small flat
+        color="black"
+        v-if="!signUp"
+        @click.stop="resetPasswordOpen = true"
+      >
+        Forgotten your password? Please click here
+      </v-btn>
+    </v-flex>
+
+    <email-dialog
+      :open="resetPasswordOpen"
+      @close="resetPasswordOpen = false"
+    />
   </div>
 </template>
 
 
 <script>
 import LoginForm from "./LoginForm"
+import EmailDialog from "./EmailDialog"
 
 export default {
   name: "Login",
   data() {
     return {
-      signUp: false
+      signUp: false,
+      resetPasswordOpen: false
     };
   },
   props: [ "disabled" ],
   components: {
-    LoginForm
+    LoginForm,
+    EmailDialog
   },
   computed: {
     toggleText() {

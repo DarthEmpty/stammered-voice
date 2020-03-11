@@ -23,7 +23,6 @@
       />
     </div>
     </v-layout>
-
   </div>
 </template>
 
@@ -31,9 +30,9 @@
 <script>
 import { mapState, mapGetters, mapActions } from "vuex"
 
-import Login from "../components/Login.vue"
-import Recorder from "../components/Recorder.vue"
-import CueCard from "../components/CueCard.vue"
+import Login from "../components/Login"
+import Recorder from "../components/Recorder"
+import CueCard from "../components/CueCard"
 
 export default {
   name: "Interactive",
