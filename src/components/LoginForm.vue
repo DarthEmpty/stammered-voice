@@ -65,7 +65,6 @@ export default {
       let result = await this.$validator.validate()
       if (result) {
         this.$emit("submit", this.email, this.password)
-        this.buttonsDisabled = true
       }
     }
   }

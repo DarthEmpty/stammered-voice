@@ -36,12 +36,13 @@ export default {
   },
   computed: mapState(["authManagement"]),
   methods: {
-    onSubmit(email) {
-      this.authManagement.sendResetPwd({ email })
-    },
-
     close() {
       this.$emit("close")
+    },
+
+    onSubmit(email) {
+      this.authManagement.sendResetPwd({ email })
+      this.close()
     }
   }
 }
