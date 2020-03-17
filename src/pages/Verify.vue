@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: "Verify",
@@ -28,14 +28,16 @@ export default {
     }
   },
   computed: mapState(["authManagement"]),
+  methods: mapActions(["report"]),
   async created() {
     const token = this.$route.query.token
-    
+
     try {
-      await this.authManagement.verifySignupLong(token)
+      await this.authManagement.verifySignupLong(token)     
       this.contentIndex = 1
     } catch (error) {
       this.contentIndex = 2
+      this.report(error)
     }
   }
 }
