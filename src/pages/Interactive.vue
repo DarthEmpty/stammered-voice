@@ -1,27 +1,26 @@
 <template>
   <div id="interactive">
     <v-layout align-center fill-height column>
-
-    <login
-      v-if="!user"
-      :disabled.sync="loginDisabled"
-      @sign-up="addCredentials"
-      @log-in="login"
-    />
-
-    <div v-else>
-      <cue-card
-        :nextDisabled="!blob"
-        :cardWidth="cardWidth"
-        @submit="store"
-        @request-texts="getRandomPhrases"
+      <login
+        v-if="!user"
+        :disabled.sync="loginDisabled"
+        @sign-up="addCredentials"
+        @log-in="login"
       />
-      <recorder
-        :blob.sync="blob"
-        :defaultState="!blob"
-        :cardWidth="cardWidth"
-      />
-    </div>
+
+      <div v-else>
+        <cue-card
+          :nextDisabled="!blob"
+          :cardWidth="cardWidth"
+          @submit="store"
+          @request-texts="getRandomPhrases"
+        />
+        <recorder
+          :blob.sync="blob"
+          :defaultState="!blob"
+          :cardWidth="cardWidth"
+        />
+      </div>
     </v-layout>
   </div>
 </template>

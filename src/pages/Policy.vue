@@ -1,6 +1,8 @@
 <template>
   <div id="policy">
-    <pdf-viewer url="https://cdn.mozilla.net/pdfjs/tracemonkey.pdf" :scale=scale />
+    <v-layout column align-center fill-height>
+      <pdf-viewer url="https://arxiv.org/pdf/1706.03762.pdf" />
+    </v-layout>
   </div>
 </template>
 
@@ -12,13 +14,12 @@ export default {
   name: "Policy",
   data() {
     return {
-      filePath: "",
-      scale: 2
+      filePath: ""
     }
   },
-  components: [
+  components: {
     PdfViewer
-  ],
+  },
   created() {
     this.filePath = "~/static/" + this.$route.params.filename
   }
