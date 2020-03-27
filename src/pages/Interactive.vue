@@ -47,7 +47,7 @@ export default {
     CueCard
   },
   computed: {
-    ...mapState(["client", "user", "phraseList"]),
+    ...mapState(["user"]),
     ...mapGetters(["participants", "recordings", "phrases"]),
 
     cardWidth() {

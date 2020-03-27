@@ -1,27 +1,29 @@
 <template>
   <div id="policy">
     <v-layout column align-center fill-height>
-      <pdf-viewer url="https://arxiv.org/pdf/1706.03762.pdf" />
+      <pdf-viewer :path="path" />
     </v-layout>
   </div>
 </template>
 
 
 <script>
+import { mapState } from "vuex"
 import PdfViewer from "../components/PdfViewer"
 
 export default {
   name: "Policy",
   data() {
     return {
-      filePath: ""
+      path: ""
     }
   },
   components: {
-    PdfViewer
+    PdfViewer,
   },
+  computed: mapState(["client"]),
   created() {
-    this.filePath = "~/static/" + this.$route.params.filename
+    this.path = "../assets/pdf/" + this.$route.params.filename
   }
 }
 </script>
