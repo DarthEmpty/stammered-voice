@@ -1,29 +1,26 @@
 <template>
   <div id="policy">
     <v-layout column align-center fill-height>
-      <pdf-viewer :path="path" />
+      <pdf-viewer :pdfData="pdfData" />
     </v-layout>
   </div>
 </template>
 
 
 <script>
-import { mapState } from "vuex"
 import PdfViewer from "../components/PdfViewer"
+import pdfData from "../assets/pdf/research-participant-privacy-notice.pdf"
 
 export default {
   name: "Policy",
   data() {
     return {
-      path: ""
+      path: "",
+      pdfData
     }
   },
   components: {
     PdfViewer,
-  },
-  computed: mapState(["client"]),
-  created() {
-    this.path = "../assets/pdf/" + this.$route.params.filename
   }
 }
 </script>
