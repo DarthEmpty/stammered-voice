@@ -15,7 +15,6 @@ export default {
   name: "Policy",
   data() {
     return {
-      path: "",
       pdfData
     }
   },

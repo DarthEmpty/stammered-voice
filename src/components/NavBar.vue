@@ -24,7 +24,7 @@ export default {
         { name: "Home", to: "/" },
         { name: "About", to: "/about" },
         { name: "Guide", to: "/guide" },
-        { name: "Account", to: "/account" }
+        { name: "Account", to: "/account" },
       ]
     }
   },

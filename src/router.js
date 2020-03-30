@@ -13,7 +13,7 @@ export default new VueRouter({
     { path: "/guide", component: Guide },
     { path: "/account", component: Account },
 
-    { path: "/policy/:filename", component: Policy },
+    { path: "/policy", component: Policy },
     { path: "/verify", component: Verify },
   ]
 })

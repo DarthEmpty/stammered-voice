@@ -1,6 +1,6 @@
 <template>
   <div id="pdf-viewer">
-    <v-flex class="mx-5">
+    <v-flex>
       <object
         type="application/pdf"
         :width="$vuetify.breakpoint.width / 2"
