@@ -15,7 +15,7 @@
       <v-btn
         large depressed
         :disabled="email===''"
-        :loading="disabled"
+        :loading="loading"
         color="primary"
         @click="submit"
       >
@@ -34,14 +34,19 @@ export default {
   name: "EmailForm",
   data() {
     return {
-      email: ""
+      email: "",
+      loading: false
     }
   },
   methods: {
     async submit() {
+      this.loading = true
       let result = await this.$validator.validate()
       if (result) {
         this.$emit("submit", this.email)
+
+      } else {
+        this.loading = false
       }
     }
   }
