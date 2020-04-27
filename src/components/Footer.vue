@@ -3,8 +3,12 @@
     <v-footer height="auto">
       <v-card flat tile color="accent" class="flex">
         <v-card-text class="caption">
-          <router-link to="/policy">
+          <router-link to="/policy/privacy">
             <strong>Our Privacy Policy</strong>
+          </router-link>
+          <div />
+          <router-link to="/policy/participant-info">
+            <strong>Information for Participants</strong>
           </router-link>
         </v-card-text>
         <v-card-text>
