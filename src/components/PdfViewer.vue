@@ -3,7 +3,7 @@
     <v-flex>
       <object
         type="application/pdf"
-        :width="$vuetify.breakpoint.width / 2"
+        :width="width"
         :height="$vuetify.breakpoint.height"
         :data="pdfData"
       />
@@ -15,6 +15,14 @@
 <script>
 export default {
   name: "PdfViewer",
-  props: ["pdfData"]
+  props: ["pdfData"],
+  computed: {
+    width() {
+      const vpWidth = this.$vuetify.breakpoint.width
+      const breakpoint = this.$vuetify.breakpoint.smAndDown
+
+      return breakpoint ? vpWidth : vpWidth / 2
+    }
+  }
 }
 </script>
