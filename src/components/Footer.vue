@@ -11,6 +11,7 @@
             <strong>Information for Participants</strong>
           </router-link>
         </v-card-text>
+
         <v-card-text>
           <v-tooltip 
             v-for="link in links"
@@ -26,6 +27,10 @@
             </template>
             <span>{{ link.tip }}</span>
           </v-tooltip>
+        </v-card-text>
+
+        <v-card-text class="caption">
+          <strong xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#" class="license-text"><span rel="dct:title">Stammered Voice</span> is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0<img style="height:22px!important;margin-left: 3px;vertical-align:text-bottom;" src="https://search.creativecommons.org/static/img/cc_icon.svg" /><img  style="height:22px!important;margin-left: 3px;vertical-align:text-bottom;" src="https://search.creativecommons.org/static/img/cc-by_icon.svg" /><img  style="height:22px!important;margin-left: 3px;vertical-align:text-bottom;" src="https://search.creativecommons.org/static/img/cc-nc_icon.svg" /><img  style="height:22px!important;margin-left: 3px;vertical-align:text-bottom;" src="https://search.creativecommons.org/static/img/cc-sa_icon.svg" /></a></strong>
         </v-card-text>
       </v-card>
     </v-footer>
