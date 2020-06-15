@@ -22,6 +22,16 @@
       >
         Delete Data
       </v-btn>
+
+      <div />
+
+      <v-btn
+        flat
+        color="error"
+        @click.stop=""
+      >
+        Delete Account
+      </v-btn>
     </v-sheet>
 
     <see-data-dialog
