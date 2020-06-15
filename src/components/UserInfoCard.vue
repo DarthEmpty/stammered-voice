@@ -28,7 +28,7 @@
       <v-btn
         flat
         color="error"
-        @click.stop=""
+        @click.stop="deleteAccountOpen = true"
       >
         Delete Account
       </v-btn>
@@ -43,6 +43,11 @@
       :open="deleteDataOpen"
       @close="cleanAfterDelete"
     />
+
+    <delete-account-dialog
+      :open="deleteAccountOpen"
+      @close="deleteAccountOpen = false"
+    />
   </div>
 </template>
 
@@ -50,6 +55,7 @@
 <script>
 import SeeDataDialog from "../components/SeeDataDialog"
 import DeleteDataDialog from "../components/DeleteDataDialog"
+import DeleteAccountDialog from "../components/DeleteAccountDialog"
 import { mapState, mapGetters } from 'vuex'
 
 export default {
@@ -58,12 +64,14 @@ export default {
     return {
       recordingTotal: 0,
       seeDataOpen: false,
-      deleteDataOpen: false
+      deleteDataOpen: false,
+      deleteAccountOpen: false,
     }
   },
   components: {
     SeeDataDialog,
-    DeleteDataDialog
+    DeleteDataDialog,
+    DeleteAccountDialog,
   },
   computed: {
     ...mapState(["user"]),
