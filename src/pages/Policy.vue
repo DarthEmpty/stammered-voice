@@ -14,21 +14,18 @@ import info from "../assets/pdf/research-participant-info.pdf"
 
 export default {
   name: "Policy",
+  data() {
+    return {
+      privacy,
+      info
+    }
+  },
   props: [ "file" ],
   components: {
     PdfViewer,
   },
   computed: {
-    pdfData() {
-      switch (this.$route.params.file) {
-        case "privacy":
-          return privacy;
-        case "participant-info":
-          return info;
-        default:
-          return null;
-      }
-    }
+    pdfData() { return this[this.$route.params.file] }
   }
 }
 </script>

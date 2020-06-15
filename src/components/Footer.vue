@@ -7,7 +7,7 @@
             <strong>Our Privacy Policy</strong>
           </router-link>
           <div />
-          <router-link to="/policy/participant-info">
+          <router-link to="/policy/info">
             <strong>Information for Participants</strong>
           </router-link>
         </v-card-text>
