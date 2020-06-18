@@ -12,6 +12,7 @@ export default new Vuex.Store({
   state: {
     client: null,
     user: null,
+    token: "",
     authManagement: null,
     phraseList: [],
     errorMessage: ""
@@ -43,6 +44,10 @@ export default new Vuex.Store({
       state.user = user
     },
 
+    setToken(state, token) {
+      state.token = token
+    },
+
     setPhraseList(state, list) {
       state.phraseList = list
     },
@@ -57,13 +62,16 @@ export default new Vuex.Store({
       commit("initDatabaseConnection")
     },
 
-    async authenticateUser({ state, getters }, credentials) {
+    async authenticateUser({ commit, state, getters }, credentials) {
       let response = await state.client.authenticate({
         strategy: "local",
         email: credentials.email,
         password: credentials.password
       })
+
+      commit("setToken", response.accessToken)
       let payload = await state.client.passport.verifyJWT(response.accessToken)
+
       return await getters.participants.get(payload.participantId)
     },
     
