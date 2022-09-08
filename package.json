@@ -14,7 +14,7 @@
     "@fortawesome/fontawesome-free": "^5.7.2",
     "feathers-authentication-management": "^2.0.1",
     "file-saver": "^2.0.2",
-    "jszip": "^3.2.1",
+    "jszip": "^3.7.0",
     "material-design-icons-iconfont": "^4.0.5",
     "recordrtc": "^5.5.4",
     "serialize-javascript": "^2.1.2",
